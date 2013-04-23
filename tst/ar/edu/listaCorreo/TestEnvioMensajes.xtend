@@ -6,8 +6,9 @@ import org.junit.Test
 import org.junit.Assert
 import ar.edu.listaCorreo.observers.MockMailSender
 import ar.edu.listaCorreo.observers.MalasPalabrasObserver
+import ar.edu.listaCorreo.observers.MailObserver
 
-class TestEnvioMensajes {
+class TestEnvioPosts {
 	
 	Lista listaProfes
 	Lista listaAlumnos
@@ -16,10 +17,9 @@ class TestEnvioMensajes {
 	Miembro deby
 	Miembro alumno
 	Miembro fede
-	Mensaje mensajeAlumno
-	Mensaje mensajeDodainAlumnos
-	Mensaje mensajeDodainProfes
-	Mensaje mensajeConMalasPalabras
+	Post mensajeAlumno
+	Post mensajeDodainAlumnos
+	Post mensajeDodainProfes
 	MockMailSender mockMailSender = new MockMailSender
 	MalasPalabrasObserver malasPalabrasObserver = new MalasPalabrasObserver
 		
@@ -39,18 +39,21 @@ class TestEnvioMensajes {
 		listaProfes.agregarMiembro(dodain)
 		listaProfes.agregarMiembro(nico)
 		listaProfes.agregarMiembro(deby)
-		listaProfes.agregarSender(mockMailSender)
+		listaProfes.agregarPostObserver(new MailObserver(mockMailSender))
 		/** en la de alumnos hay alumnos y profes */
-		listaAlumnos.agregarSender(mockMailSender)
-		listaAlumnos.agregarSender(malasPalabrasObserver)
+		listaAlumnos.agregarMiembro(dodain)
+		listaAlumnos.agregarMiembro(deby)
+		listaAlumnos.agregarMiembro(fede)
+		listaAlumnos.agregarPostObserver(new MailObserver(mockMailSender))
+		listaAlumnos.agregarPostObserver(malasPalabrasObserver)
 		
-		mensajeAlumno = new Mensaje(alumno, "Hola, queria preguntar que es la recursividad", listaProfes)
-		mensajeDodainAlumnos = new Mensaje(dodain, "Para explicarte recursividad tendría que explicarte qué es la recursividad", listaAlumnos)
-		mensajeDodainProfes = new Mensaje(dodain, "Cuantos TPs hacemos?", listaProfes)
+		mensajeAlumno = new Post(alumno, "Hola, queria preguntar que es la recursividad", listaProfes)
+		mensajeDodainAlumnos = new Post(dodain, "Para explicarte recursividad tendría que explicarte qué es la recursividad", listaAlumnos)
+		mensajeDodainProfes = new Post(dodain, "Cuantos TPs hacemos?", listaProfes)
 	}
 	
 	@Test(expected=typeof(BusinessException))
-	def void alumnoNoPuedeEnviarMensajeAListaProfes() {
+	def void alumnoNoPuedeEnviarPostAListaProfes() {
 		listaProfes.enviar(mensajeAlumno)
 	}
 	
@@ -63,7 +66,7 @@ class TestEnvioMensajes {
 
 	@Test
 	def void alumnoEnviaMailConMalaPalabra() {
-		val mensajeFeo = new Mensaje(alumno, "Cuál es loco! Me tienen podrido", listaAlumnos)
+		val mensajeFeo = new Post(alumno, "Cuál es loco! Me tienen podrido", listaAlumnos)
 		malasPalabrasObserver.agregarMalaPalabra("podrido")
 		listaAlumnos.enviar(mensajeFeo)
 		Assert::assertEquals(1, malasPalabrasObserver.mensajesConMalasPalabras.size)

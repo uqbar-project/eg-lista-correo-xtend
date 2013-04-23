@@ -1,13 +1,14 @@
 package ar.edu.listaCorreo
 
-import java.util.List
 import java.util.ArrayList
-import ar.edu.listaCorreo.observers.MessageSender
+import java.util.List
+import ar.edu.listaCorreo.observers.PostObserver
 
 class Lista {
 	@Property List<Miembro> miembros
 	@Property TipoEnvio tipoEnvio
-	@Property List<MessageSender> messageSenders
+	@Property List<PostObserver> postObservers
+	@Property String encabezado
 	
 	def static Lista listaAbierta() {
 		new Lista
@@ -23,24 +24,28 @@ class Lista {
 	new() {
 		miembros = new ArrayList<Miembro>
 		tipoEnvio = new ListaAbierta
-		messageSenders = new ArrayList<MessageSender>
+		postObservers = new ArrayList<PostObserver>
 	}
 	
 	def void agregarMiembro(Miembro miembro) {
 		miembros.add(miembro)
 	}
 	
-	def void agregarSender(MessageSender sender) {
-		messageSenders.add(sender)
+	def void agregarPostObserver(PostObserver postObserver) {
+		postObservers.add(postObserver)
 	}
 	
-	def void enviar(Mensaje mensaje) {
-		tipoEnvio.validar(mensaje, this)
-		messageSenders.forEach [ sender | sender.send(mensaje) ]
+	def void enviar(Post post) {
+		tipoEnvio.validarEnvio(post, this)
+		postObservers.forEach [ sender | sender.send(post) ]
 	}
 	
-	def String getDestinatarios() {
-		miembros.map [ miembro | miembro.mail ].toString
+	def Iterable<Miembro> getDestinatarios(Post post) {
+		miembros.filter [ miembro | !miembro.equals(post.emisor) ]
+	}
+	
+	def String getMailsDestino(Post post) {
+		getDestinatarios(post).map [ miembro | miembro.mail ].toString
 	}
 	
 	def boolean estaSuscripto(Miembro miembro) {

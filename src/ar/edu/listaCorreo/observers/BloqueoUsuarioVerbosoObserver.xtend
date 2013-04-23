@@ -1,12 +1,11 @@
 package ar.edu.listaCorreo.observers
 
-import ar.edu.listaCorreo.observers.MessageSender
-import ar.edu.listaCorreo.Mensaje
+import ar.edu.listaCorreo.Post
 
-class BloqueoUsuarioVerbosoObserver implements MessageSender {
+class BloqueoUsuarioVerbosoObserver implements PostObserver {
 	
-	override send(Mensaje mensaje) {
-		val emisor = mensaje.emisor
+	override send(Post post) {
+		val emisor = post.emisor
 		if (emisor.envioMuchosMensajes) {
 			emisor.bloquear			
 		}

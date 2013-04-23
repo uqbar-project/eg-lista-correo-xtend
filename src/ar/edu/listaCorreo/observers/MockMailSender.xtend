@@ -5,7 +5,6 @@ import java.util.Map
 import java.util.HashMap
 import java.util.List
 import java.util.ArrayList
-import ar.edu.listaCorreo.Mensaje
 
 class MockMailSender implements MessageSender {
 	Map<String, List<String>> mailsEnviados
@@ -14,8 +13,9 @@ class MockMailSender implements MessageSender {
 		mailsEnviados = new HashMap<String, List<String>>
 	}
 	
-	override send(Mensaje mensaje) {
-		simularEnvioMail(mensaje.from, mensaje.mensaje)
+	override send(Mail mail) {
+		simularEnvioMail(mail.from, mail.message)
+		println("Simulación envío de mail | From: " + mail.from + " | To: " + mail.to + " | Message: " + mail.message)
 	}
 	
 	def simularEnvioMail(String from, String message) {

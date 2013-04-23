@@ -1,6 +1,6 @@
 package ar.edu.listaCorreo
 
-class Mensaje {
+class Post {
 	
 	@Property Miembro emisor
 	@Property Lista destino
@@ -12,8 +12,4 @@ class Mensaje {
 		destino = pDestino
 	}
 
-	def String from() {
-		emisor.mail
-	}
-	
 }

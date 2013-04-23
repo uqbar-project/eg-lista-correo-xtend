@@ -1,19 +1,18 @@
 package ar.edu.listaCorreo.observers
 
-import ar.edu.listaCorreo.observers.MessageSender
 import java.util.List
 import java.util.ArrayList
-import ar.edu.listaCorreo.Mensaje
+import ar.edu.listaCorreo.Post
 
-class MalasPalabrasObserver implements MessageSender {
+class MalasPalabrasObserver implements PostObserver {
 	
 	List<String> malasPalabras = new ArrayList<String>
-	List<Mensaje> mensajesConMalasPalabras = new ArrayList<Mensaje>
+	List<Post> postConMalasPalabras = new ArrayList<Post>
 	
-	override send(Mensaje mensaje) {
-		if (tieneMalasPalabras(mensaje.mensaje)) {
-			println ("Mensaje enviado a admin")
-			mensajesConMalasPalabras.add(mensaje)
+	override send(Post post) {
+		if (tieneMalasPalabras(post.mensaje)) {
+			println ("Mensaje enviado a admin por mensaje con malas palabras: " + post.mensaje)
+			postConMalasPalabras.add(post)
 		}
 	}
 	
@@ -30,7 +29,7 @@ class MalasPalabrasObserver implements MessageSender {
 	}
 	
 	def mensajesConMalasPalabras() {
-		mensajesConMalasPalabras
+		postConMalasPalabras
 	}
 	
 }

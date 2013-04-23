@@ -4,8 +4,8 @@ import ar.edu.listaCorreo.exceptions.BusinessException
 
 class ListaRestringida extends TipoEnvio {
 
-	override void validar(Mensaje mensaje, Lista lista) {
-		if (!lista.estaSuscripto(mensaje.emisor)) {
+	override void validarEnvio(Post post, Lista lista) {
+		if (!lista.estaSuscripto(post.emisor)) {
 			throw new BusinessException("El usuario no está suscripto")
 		}
 	}
