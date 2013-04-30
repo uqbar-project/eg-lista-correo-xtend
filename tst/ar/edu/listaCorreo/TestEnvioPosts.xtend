@@ -1,16 +1,17 @@
 package ar.edu.listaCorreo
 
 import ar.edu.listaCorreo.exceptions.BusinessException
+import ar.edu.listaCorreo.observers.Mail
+import ar.edu.listaCorreo.observers.MailObserver
+import ar.edu.listaCorreo.observers.MalasPalabrasObserver
+import ar.edu.listaCorreo.observers.MessageSender
+import ar.edu.listaCorreo.observers.StubMailSender
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.junit.Assert
-import ar.edu.listaCorreo.observers.MalasPalabrasObserver
-import ar.edu.listaCorreo.observers.MailObserver
-import ar.edu.listaCorreo.observers.StubMailSender
-import java.util.List
+
+import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
-import ar.edu.listaCorreo.observers.Mail
-import ar.edu.listaCorreo.observers.MessageSender
 
 class TestEnvioPosts {
 
@@ -64,6 +65,7 @@ class TestEnvioPosts {
 
 	/*************************************************************/
 	/*                     TESTS CON STUBS                       */
+	/*                      TEST DE ESTADO                       */
 	/*************************************************************/
 	@Test(expected=typeof(BusinessException))
 	def void alumnoNoPuedeEnviarPostAListaProfes() {
@@ -87,6 +89,7 @@ class TestEnvioPosts {
 
 	/*************************************************************/
 	/*                     TESTS CON MOCKS                       */
+	/*                  TEST DE COMPORTAMIENTO                   */
 	/*************************************************************/
 	@Test
 	def void testEnvioPostAListaAlumnosLlegaATodosLosOtrosSuscriptos() {
@@ -95,11 +98,11 @@ class TestEnvioPosts {
 		listaAlumnos.agregarPostObserver(new MailObserver(mockedMailSender))
 
 		// un alumno envía un mensaje a la lista
-		listaAlumnos.enviar(mensajeAlumno)
+		listaAlumnos.enviar(mensajeDodainAlumnos)
 
 		//verificacion
 		//test de comportamiento, verifico que se enviaron 3 mails
-		verify(mockedMailSender, times(3)).send(any(typeof(Mail)))
+		verify(mockedMailSender, times(2)).send(any(typeof(Mail)))
 	}
 	
 }
