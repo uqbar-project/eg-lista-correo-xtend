@@ -58,8 +58,8 @@ class Lista {
 		miembros.filter [ miembro | !miembro.equals(post.emisor) ]
 	}
 	
-	def String getMailsDestino(Post post) {
-		getDestinatarios(post).map [ miembro | miembro.mail ].toString
+	def getMailsDestino(Post post) {
+		getDestinatarios(post).map [ miembro | miembro.mail ]
 	}
 	
 	def boolean estaSuscripto(Miembro miembro) {
