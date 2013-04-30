@@ -3,14 +3,14 @@ package ar.edu.listaCorreo.observers
 import ar.edu.listaCorreo.observers.MessageSender
 import java.util.Map
 import java.util.HashMap
-import java.util.List
-import java.util.ArrayList
+import java.util.HashSet
+import java.util.Set
 
-class MockMailSender implements MessageSender {
-	Map<String, List<String>> mailsEnviados
+class StubMailSender implements MessageSender {
+	Map<String, Set<String>> mailsEnviados
 	
 	new() {
-		mailsEnviados = new HashMap<String, List<String>>
+		mailsEnviados = new HashMap<String, Set<String>>
 	}
 	
 	override send(Mail mail) {
@@ -24,10 +24,10 @@ class MockMailSender implements MessageSender {
 		mailsEnviados.put(from, mensajes)
 	}
 	
-	def List<String> mailsDe(String from) {
-		var List<String> mensajes = mailsEnviados.get(from)
+	def Set<String> mailsDe(String from) {
+		var Set<String> mensajes = mailsEnviados.get(from)
 		if (mensajes == null) {
-			mensajes = new ArrayList<String>
+			mensajes = new HashSet<String>
 		}
 		mensajes
 	}
