@@ -10,6 +10,7 @@ import ar.edu.listaCorreo.observers.StubMailSender
 import java.util.List
 import static org.mockito.Mockito.*
 import ar.edu.listaCorreo.observers.Mail
+import ar.edu.listaCorreo.observers.MessageSender
 
 class TestEnvioPosts {
 
@@ -88,9 +89,9 @@ class TestEnvioPosts {
 	/*                     TESTS CON MOCKS                       */
 	/*************************************************************/
 	@Test
-	def void testLista() {
+	def void testEnvioPostAListaAlumnosLlegaATodosLosOtrosSuscriptos() {
 		//creacion de mock
-		var mockedMailSender = mock(typeof(StubMailSender))
+		var mockedMailSender = mock(typeof(MessageSender))
 		listaAlumnos.agregarPostObserver(new MailObserver(mockedMailSender))
 
 		// un alumno envía un mensaje a la lista
