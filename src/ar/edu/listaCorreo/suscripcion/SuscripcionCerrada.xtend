@@ -24,6 +24,5 @@ class SuscripcionCerrada implements TipoSuscripcion {
 	def eliminarMiembrosPendientes(Miembro miembro) { 
 		miembrosPendientes.remove(miembro)
 	}
-
 	
 }

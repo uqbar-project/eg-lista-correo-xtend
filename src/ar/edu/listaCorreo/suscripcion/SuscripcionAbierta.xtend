@@ -10,7 +10,6 @@ class SuscripcionAbierta implements TipoSuscripcion {
 		lista.agregarMiembro(miembro)
 	}
 	
-
 	override aprobarSuscripcion(Miembro miembro, Lista lista) {
 		throw new UnsupportedOperationException("No se deben aprobar suscripciones de listas de suscripción abierta")
 	}

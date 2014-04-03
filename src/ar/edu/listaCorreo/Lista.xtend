@@ -14,6 +14,18 @@ class Lista {
 	@Property String encabezado
 	@Property TipoSuscripcion tipoSuscripcion
 	
+	/**
+	 * CONSTRUCTORES
+	 */
+	 
+	/** Constructor default: toda lista es abierta */
+	new() {
+		miembros = new ArrayList<Miembro>
+		tipoEnvio = new ListaAbierta
+		postObservers = new ArrayList<PostObserver>
+		tipoSuscripcion = new SuscripcionAbierta
+	}
+	
 	def static Lista listaAbierta() {
 		new Lista
 	}	
@@ -25,6 +37,10 @@ class Lista {
 		lista
 	}	
 
+	/** 
+	 * CASO DE USO: Suscripción
+	 *  
+	 **/
 	def suscribir(Miembro miembro)  {
 		tipoSuscripcion.suscribir(miembro, this)
 	}
@@ -33,25 +49,21 @@ class Lista {
 		tipoSuscripcion.aprobarSuscripcion(miembro, this)
 	}
 	
-	/** Constructor, por default toda lista es abierta */
-	new() {
-		miembros = new ArrayList<Miembro>
-		tipoEnvio = new ListaAbierta
-		postObservers = new ArrayList<PostObserver>
-		tipoSuscripcion = new SuscripcionAbierta
-	}
-	
 	def void agregarMiembro(Miembro miembro) {
 		miembros.add(miembro)
+	}
+
+	/** 
+	 * CASO DE USO: Envío de post
+	 *  
+	 **/
+	def void enviar(Post post) {
+		tipoEnvio.validarEnvio(post, this)
+		postObservers.forEach [ sender | sender.send(post) ]
 	}
 	
 	def void agregarPostObserver(PostObserver postObserver) {
 		postObservers.add(postObserver)
-	}
-	
-	def void enviar(Post post) {
-		tipoEnvio.validarEnvio(post, this)
-		postObservers.forEach [ sender | sender.send(post) ]
 	}
 	
 	def Iterable<Miembro> getDestinatarios(Post post) {
