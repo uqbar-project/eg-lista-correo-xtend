@@ -15,8 +15,8 @@ class ListaCorreoFactory {
 		return new ListaCorreoRestringida(new ListaCorreoImpl)
 	}
 
-	def ListaCerrada cerradaYRestringida() {
-		return new ListaCerradaRestringida(new ListaCerradaImpl)
+	def ListaCorreo cerradaYRestringida() {
+		return new ListaCorreoRestringida(new ListaCerradaImpl)
 	}
 
 }
