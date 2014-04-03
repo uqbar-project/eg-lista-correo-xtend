@@ -5,7 +5,7 @@ import java.util.ArrayList
 import java.util.List
 import ar.edu.listaCorreo.Lista
 
-class SuscripcionCerrada extends TipoSuscripcion {
+class SuscripcionCerrada implements TipoSuscripcion {
 	List<Miembro> miembrosPendientes = new ArrayList<Miembro>
 
 	override suscribir(Miembro miembro, Lista lista) {

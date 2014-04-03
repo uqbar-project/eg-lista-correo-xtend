@@ -4,7 +4,7 @@ import ar.edu.listaCorreo.suscripcion.TipoSuscripcion
 import ar.edu.listaCorreo.Miembro
 import ar.edu.listaCorreo.Lista
 
-class SuscripcionAbierta extends TipoSuscripcion {
+class SuscripcionAbierta implements TipoSuscripcion {
 	
 	override suscribir(Miembro miembro, Lista lista) {
 		lista.agregarMiembro(miembro)
