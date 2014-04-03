@@ -1,23 +1,22 @@
 package ar.org.uqbar.disenio.listas.decorator
 
-class ListaCorreroFactory {
-
+class ListaCorreoFactory {
 
 	def ListaCorreo abiertaYLibre() {
-		return  new ListaCorreoImpl();
+		return new ListaCorreoImpl
 	}
 
 	def ListaCerrada cerradaYLibre() {
-		return new ListaCerradaImpl();
+		return new ListaCerradaImpl
 	}
 
 
 	def ListaCorreo abiertaYRestringida() {
-		return new ListaCorreoRestringida(new ListaCorreoImpl());
+		return new ListaCorreoRestringida(new ListaCorreoImpl)
 	}
 
 	def ListaCerrada cerradaYRestringida() {
-		return new ListaCerradaRestringida(new ListaCerradaImpl());
+		return new ListaCerradaRestringida(new ListaCerradaImpl)
 	}
 
 }
