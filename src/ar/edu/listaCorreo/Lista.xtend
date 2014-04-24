@@ -16,6 +16,7 @@ class Lista {
 	
 	/**
 	 * CONSTRUCTORES
+	 
 	 */
 	 
 	/** Constructor default: toda lista es abierta */
@@ -44,7 +45,9 @@ class Lista {
 	def suscribir(Miembro miembro)  {
 		tipoSuscripcion.suscribir(miembro, this)
 	}
-		
+	
+//  otra decisión de diseño podría ser no obligar a la lista abierta a aprobar suscripción
+//  pero eso complica al test porque tiene que acceder al strategy 		
 	def aprobarSuscripcion(Miembro miembro)  {
 		tipoSuscripcion.aprobarSuscripcion(miembro, this)
 	}

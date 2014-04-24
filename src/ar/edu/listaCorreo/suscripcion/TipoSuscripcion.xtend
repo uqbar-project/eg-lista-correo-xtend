@@ -14,4 +14,5 @@ interface TipoSuscripcion {
 	 */
 	 def void suscribir(Miembro miembro, Lista lista)
 	 def void aprobarSuscripcion(Miembro miembro, Lista lista)
+	 
 }

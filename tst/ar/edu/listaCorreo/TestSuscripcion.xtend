@@ -17,8 +17,8 @@ class TestSuscripcion {
 	@Before
 	def void init() {
 		/** Listas de correo */
-		listaAlumnos = Lista::listaAbierta()
-		listaProfes = Lista::listaCerrada()
+		listaAlumnos = Lista.listaAbierta()
+		listaProfes = Lista.listaCerrada()
 		/** Profes */
 		dodain = new Miembro("fernando.dodino@gmail.com")
 		nico = new Miembro("nicolas.passerini@gmail.com")
@@ -36,24 +36,24 @@ class TestSuscripcion {
 		
 	@Test
 	def void suscripcionAListaAbiertaEsAutomatica() {
-		Assert::assertFalse(listaAlumnos.estaSuscripto(deby))
+		Assert.assertFalse(listaAlumnos.estaSuscripto(deby))
 		listaAlumnos.suscribir(deby)
-		Assert::assertTrue(listaAlumnos.estaSuscripto(deby))		
+		Assert.assertTrue(listaAlumnos.estaSuscripto(deby))		
 	}
 
 	@Test
 	def void suscripcionAListaCerradaNoEsAutomatica() {
-		Assert::assertFalse(listaProfes.estaSuscripto(deby))
+		Assert.assertFalse(listaProfes.estaSuscripto(deby))
 		listaProfes.suscribir(deby)
-		Assert::assertFalse(listaProfes.estaSuscripto(deby))		
+		Assert.assertFalse(listaProfes.estaSuscripto(deby))		
 	}
 
 	@Test
 	def void suscripcionYAprobacionDeListaCerrada() {
-		Assert::assertFalse(listaAlumnos.estaSuscripto(deby))
+		Assert.assertFalse(listaAlumnos.estaSuscripto(deby))
 		listaProfes.suscribir(deby)
 		listaProfes.aprobarSuscripcion(deby)		
-		Assert::assertTrue(listaProfes.estaSuscripto(deby))
+		Assert.assertTrue(listaProfes.estaSuscripto(deby))
 	}
 	
 	@Test(expected=typeof(UnsupportedOperationException))

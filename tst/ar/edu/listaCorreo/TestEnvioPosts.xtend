@@ -32,8 +32,8 @@ class TestEnvioPosts {
 	def void init() {
 
 		/** Listas de correo */
-		listaAlumnos = Lista::listaAbierta()
-		listaProfes = Lista::listaCerrada()
+		listaAlumnos = Lista.listaAbierta()
+		listaProfes = Lista.listaCerrada()
 
 		/** Profes */
 		dodain = new Miembro("fernando.dodino@gmail.com")
@@ -74,9 +74,9 @@ class TestEnvioPosts {
 
 	@Test
 	def void alumnoPuedeEnviarMailAListaAbierta() {
-		Assert::assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
+		Assert.assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
 		listaAlumnos.enviar(mensajeAlumno)
-		Assert::assertEquals(1, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
+		Assert.assertEquals(1, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
 	}
 
 	@Test
@@ -84,7 +84,7 @@ class TestEnvioPosts {
 		val mensajeFeo = new Post(alumno, "Cuál es loco! Me tienen podrido", listaAlumnos)
 		malasPalabrasObserver.agregarMalaPalabra("podrido")
 		listaAlumnos.enviar(mensajeFeo)
-		Assert::assertEquals(1, malasPalabrasObserver.mensajesConMalasPalabras.size)
+		Assert.assertEquals(1, malasPalabrasObserver.mensajesConMalasPalabras.size)
 	}
 
 	/*************************************************************/
@@ -101,7 +101,7 @@ class TestEnvioPosts {
 		listaAlumnos.enviar(mensajeDodainAlumnos)
 
 		//verificacion
-		//test de comportamiento, verifico que se enviaron 3 mails
+		//test de comportamiento, verifico que se enviaron 2 mails
 		verify(mockedMailSender, times(2)).send(any(typeof(Mail)))
 	}
 	
