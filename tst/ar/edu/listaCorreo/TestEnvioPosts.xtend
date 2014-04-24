@@ -101,7 +101,8 @@ class TestEnvioPosts {
 		listaAlumnos.enviar(mensajeDodainAlumnos)
 
 		//verificacion
-		//test de comportamiento, verifico que se enviaron 2 mails
+		//test de comportamiento, verifico que se enviaron 2 mails 
+		// a fede y a deby, no así a dodi que fue el que envió el post
 		verify(mockedMailSender, times(2)).send(any(typeof(Mail)))
 	}
 	
