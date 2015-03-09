@@ -1,18 +1,20 @@
 package ar.edu.listaCorreo
 
-import java.util.ArrayList
-import java.util.List
 import ar.edu.listaCorreo.observers.PostObserver
-import ar.edu.listaCorreo.suscripcion.TipoSuscripcion
 import ar.edu.listaCorreo.suscripcion.SuscripcionAbierta
 import ar.edu.listaCorreo.suscripcion.SuscripcionCerrada
+import ar.edu.listaCorreo.suscripcion.TipoSuscripcion
+import java.util.ArrayList
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class Lista {
-	@Property List<Miembro> miembros
-	@Property TipoEnvio tipoEnvio
-	@Property List<PostObserver> postObservers
-	@Property String encabezado
-	@Property TipoSuscripcion tipoSuscripcion
+	List<Miembro> miembros
+	TipoEnvio tipoEnvio
+	List<PostObserver> postObservers
+	String encabezado
+	TipoSuscripcion tipoSuscripcion
 	
 	/**
 	 * CONSTRUCTORES
