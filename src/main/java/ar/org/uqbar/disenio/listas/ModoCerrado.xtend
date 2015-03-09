@@ -1,11 +1,13 @@
 package ar.org.uqbar.disenio.listas
 
-import ar.org.uqbar.disenio.listas.ModoSuscripcion
 import java.util.ArrayList
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class ModoCerrado extends ModoSuscripcion {
 	
-	@Property  var miembrosPendientes = new ArrayList<Miembro>()
+	List<Miembro> miembrosPendientes = new ArrayList<Miembro>()
 
 	override suscribir(Miembro miembro) {
 		miembrosPendientes.add(miembro)

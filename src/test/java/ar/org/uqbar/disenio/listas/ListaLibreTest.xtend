@@ -3,8 +3,7 @@ package ar.org.uqbar.disenio.listas
 import org.junit.Before
 import org.junit.Test
 
-class ListaLibreTest extends ListaTestCase{
-	
+class ListaLibreTest extends ListaTestCase {
 	
 	@Before 
 	override def void setUp() {

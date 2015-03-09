@@ -4,6 +4,7 @@ import org.junit.Before
 import org.junit.Test
 
 class ListaRestringidaTest extends ListaTestCase {
+	
 	@Before
 	override def void setUp() {
 		super.setUp()

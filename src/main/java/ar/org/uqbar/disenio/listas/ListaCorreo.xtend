@@ -1,11 +1,14 @@
 package ar.org.uqbar.disenio.listas
 
 import java.util.ArrayList
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class ListaCorreo {
-	@Property ModoSuscripcion modoSuscripcion
-	@Property EnvioValidator validator
-	@Property var miembros = new ArrayList<Miembro>()
+	ModoSuscripcion modoSuscripcion
+	EnvioValidator validator
+	List<Miembro> miembros = new ArrayList<Miembro>()
 	
 	def void suscribir(Miembro miembro) {
 		modoSuscripcion.suscribir(miembro)

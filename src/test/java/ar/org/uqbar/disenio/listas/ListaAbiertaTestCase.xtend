@@ -1,7 +1,7 @@
 package ar.org.uqbar.disenio.listas
 
+import org.junit.Assert
 import org.junit.Before
-import junit.framework.Assert
 import org.junit.Test
 
 class ListaAbiertaTestCase extends ListaTestCase {
@@ -15,8 +15,8 @@ class ListaAbiertaTestCase extends ListaTestCase {
 	@Test
 	def testSuscripcion() {
 		lista.suscribir(leo)
-		Assert::assertTrue("Se esperaba que leo este en la lista", lista.miembros.contains(leo))
-		Assert::assertFalse("Se esperaba que pablo no este en la lista", lista.miembros.contains(pablo))
+		Assert.assertTrue("Se esperaba que leo este en la lista", lista.miembros.contains(leo))
+		Assert.assertFalse("Se esperaba que pablo no este en la lista", lista.miembros.contains(pablo))
 	}
 	
 	

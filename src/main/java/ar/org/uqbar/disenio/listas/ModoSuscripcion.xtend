@@ -1,6 +1,10 @@
 package ar.org.uqbar.disenio.listas
 
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 abstract class ModoSuscripcion {
-	@Property ListaCorreo lista
+	ListaCorreo lista
+	
 	def abstract void suscribir(Miembro miembro)
 }
