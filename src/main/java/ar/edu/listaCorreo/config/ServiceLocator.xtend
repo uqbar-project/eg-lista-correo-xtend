@@ -1,10 +1,12 @@
 package ar.edu.listaCorreo.config
 
 import ar.edu.listaCorreo.observers.MessageSender
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class ServiceLocator {
 
-	@Property MessageSender messageSender
+	MessageSender messageSender
 	
 	/**********************************************
 	 * IMPLEMENTACION DE SINGLETON
