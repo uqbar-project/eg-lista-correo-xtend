@@ -1,12 +1,14 @@
 package ar.edu.listaCorreo
 
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class Post {
 
-	@Property Miembro emisor
-	@Property Lista destino
-	@Property String mensaje
+	Miembro emisor
+	Lista destino
+	String mensaje
 
 	new(Miembro pEmisor, String pMensaje, Lista pDestino) {
 		emisor = pEmisor

@@ -1,10 +1,13 @@
 package ar.edu.listaCorreo
 
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 class Miembro {
 	
-	@Property String mail
-	@Property int mailsEnviados = 0
-	@Property boolean bloqueado = false
+	String mail
+	int mailsEnviados = 0
+	boolean bloqueado = false
 	
 	new(String pMail) {
 		mail = pMail
