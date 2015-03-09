@@ -1,12 +1,14 @@
 package ar.org.uqbar.disenio.listas.decorator
 
-import java.util.List
 import ar.org.uqbar.disenio.emails.decorator.Email
 import java.util.ArrayList
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class Miembro {
-	@Property String mailDefault
-	@Property List<String> otrosMails = new ArrayList()
+	String mailDefault
+	List<String> otrosMails = new ArrayList()
 
 	def boolean esRemitente(Post post) {
 		return mailDefault == post.from || otrosMails.contains(post.from)

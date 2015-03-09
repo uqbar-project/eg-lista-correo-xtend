@@ -5,7 +5,6 @@ import org.junit.Test
 
 class ListaLibreTest extends ListaTestCase<ListaCorreo>{
 	
-	
 	@Before 
 	override def void setUp() {
 		super.setUp()

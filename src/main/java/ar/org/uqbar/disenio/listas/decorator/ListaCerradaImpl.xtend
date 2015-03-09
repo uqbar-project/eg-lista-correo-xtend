@@ -1,10 +1,13 @@
 package ar.org.uqbar.disenio.listas.decorator
 
 import java.util.ArrayList
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class ListaCerradaImpl extends ListaCorreoImpl implements ListaCerrada {
 	
-	@Property  var miembrosPendientes = new ArrayList<Miembro>()
+	var List<Miembro> miembrosPendientes = new ArrayList<Miembro>()
 
 	override suscribir(Miembro miembro) {
 		miembrosPendientes.add(miembro)

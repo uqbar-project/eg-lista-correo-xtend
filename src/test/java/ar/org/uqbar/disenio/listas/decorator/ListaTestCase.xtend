@@ -1,20 +1,22 @@
 package ar.org.uqbar.disenio.listas.decorator
 
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.junit.After
 import org.junit.Before
 
+@Accessors
 class ListaTestCase<T extends ListaCorreo> {
 	
-	@Property var emailSenderMock = new EmailSenderMock()
+	var EmailSenderMock emailSenderMock = new EmailSenderMock()
 	
-	@Property T lista
-	@Property var leo = new Miembro => [
+	T lista
+	var Miembro leo = new Miembro => [
 		mailDefault = "lgassman@gmail.com"
 	]
-	@Property var nico = new Miembro => [
+	var Miembro nico = new Miembro => [
 		mailDefault = "npasserini@gmail.com"
 	]
-	@Property var pablo = new Miembro => [
+	var Miembro pablo = new Miembro => [
 		mailDefault = "tesonep@gmail.com"
 	]
 	

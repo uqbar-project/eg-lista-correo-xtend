@@ -1,7 +1,7 @@
 package ar.org.uqbar.disenio.listas.decorator
 
+import org.junit.Assert
 import org.junit.Before
-import junit.framework.Assert
 import org.junit.Test
 
 class ListaAbiertaTestCase extends ListaTestCase<ListaCorreo> {
