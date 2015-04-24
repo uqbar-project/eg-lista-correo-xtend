@@ -10,6 +10,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class Lista {
+	
 	List<Miembro> miembros
 	TipoEnvio tipoEnvio
 	List<PostObserver> postObservers
@@ -34,10 +35,10 @@ class Lista {
 	}	
 
 	def static Lista listaCerrada() {
-		var lista = new Lista
-		lista.tipoEnvio = new ListaRestringida
-		lista.tipoSuscripcion = new SuscripcionCerrada
-		lista
+		new Lista => [
+			tipoEnvio = new ListaRestringida
+			tipoSuscripcion = new SuscripcionCerrada
+		]
 	}	
 
 	/** 
