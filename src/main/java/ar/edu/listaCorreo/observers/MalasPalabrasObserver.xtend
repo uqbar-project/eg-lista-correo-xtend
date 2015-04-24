@@ -11,7 +11,7 @@ class MalasPalabrasObserver implements PostObserver {
 
 	override send(Post post) {
 		if (tieneMalasPalabras(post)) {
-			println("Mensaje enviado a admin por mensaje con malas palabras: " + post.mensaje)
+			//println("Mensaje enviado a admin por mensaje con malas palabras: " + post.mensaje)
 			postConMalasPalabras.add(post)
 		}
 	}
