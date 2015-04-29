@@ -119,7 +119,7 @@ class TestEnvioPosts {
 			enviar(mensajeDodainAlumnos)
 		]
 		// busco que nunca hayan enviado un mail al emisor del post: fdodino
-		verify(mockedMailSender, never).send(argThat(new MailEnviadoA("fdodino@uni.edu.ar")))
+		verify(mockedMailSender, never).send(argThat(new MailEnviadoA(dodain.mail)))
 	}
 
 	@Test
