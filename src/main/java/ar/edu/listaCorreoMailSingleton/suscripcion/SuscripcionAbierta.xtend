@@ -1,8 +1,8 @@
-package ar.edu.listaCorreo.suscripcion
+package ar.edu.listaCorreoMailSingleton.suscripcion
 
-import ar.edu.listaCorreo.suscripcion.TipoSuscripcion
-import ar.edu.listaCorreo.Miembro
-import ar.edu.listaCorreo.Lista
+import ar.edu.listaCorreoMailSingleton.suscripcion.TipoSuscripcion
+import ar.edu.listaCorreoMailSingleton.Miembro
+import ar.edu.listaCorreoMailSingleton.Lista
 
 class SuscripcionAbierta implements TipoSuscripcion {
 	

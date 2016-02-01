@@ -1,6 +1,6 @@
-package ar.edu.listaCorreo
+package ar.edu.listaCorreoMailSingleton
 
-import ar.edu.listaCorreo.exceptions.BusinessException
+import ar.edu.listaCorreoMailSingleton.exceptions.BusinessException
 
 class ListaRestringida extends TipoEnvio {
 

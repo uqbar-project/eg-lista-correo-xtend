@@ -1,4 +1,4 @@
-package ar.edu.listaCorreo
+package ar.edu.listaCorreoMailSingleton
 
 import org.junit.Before
 import org.junit.Test

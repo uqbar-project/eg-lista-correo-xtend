@@ -1,11 +1,11 @@
-package ar.edu.listaCorreo
+package ar.edu.listaCorreoMailSingleton
 
-import ar.edu.listaCorreo.exceptions.BusinessException
-import ar.edu.listaCorreo.observers.Mail
-import ar.edu.listaCorreo.observers.MailObserver
-import ar.edu.listaCorreo.observers.MalasPalabrasObserver
-import ar.edu.listaCorreo.observers.MessageSender
-import ar.edu.listaCorreo.observers.StubMailSender
+import ar.edu.listaCorreoMailSingleton.exceptions.BusinessException
+import ar.edu.listaCorreoMailSingleton.observers.Mail
+import ar.edu.listaCorreoMailSingleton.observers.MailObserver
+import ar.edu.listaCorreoMailSingleton.observers.MalasPalabrasObserver
+import ar.edu.listaCorreoMailSingleton.observers.MessageSender
+import ar.edu.listaCorreoMailSingleton.observers.StubMailSender
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

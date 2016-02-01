@@ -1,4 +1,4 @@
-package ar.edu.listaCorreo
+package ar.edu.listaCorreoMailSingleton
 
 abstract class TipoEnvio {
 	

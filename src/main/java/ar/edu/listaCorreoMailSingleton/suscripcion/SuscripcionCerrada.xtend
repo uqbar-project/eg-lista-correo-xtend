@@ -1,9 +1,9 @@
-package ar.edu.listaCorreo.suscripcion
+package ar.edu.listaCorreoMailSingleton.suscripcion
 
-import ar.edu.listaCorreo.Miembro
+import ar.edu.listaCorreoMailSingleton.Miembro
 import java.util.ArrayList
 import java.util.List
-import ar.edu.listaCorreo.Lista
+import ar.edu.listaCorreoMailSingleton.Lista
 
 class SuscripcionCerrada implements TipoSuscripcion {
 	List<Miembro> miembrosPendientes = new ArrayList<Miembro>

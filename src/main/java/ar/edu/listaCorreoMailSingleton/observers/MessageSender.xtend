@@ -1,4 +1,4 @@
-package ar.edu.listaCorreo.observers
+package ar.edu.listaCorreoMailSingleton.observers
 
 interface MessageSender {
 	

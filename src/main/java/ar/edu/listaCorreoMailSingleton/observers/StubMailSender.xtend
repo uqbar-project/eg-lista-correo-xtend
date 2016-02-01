@@ -1,6 +1,6 @@
-package ar.edu.listaCorreo.observers
+package ar.edu.listaCorreoMailSingleton.observers
 
-import ar.edu.listaCorreo.observers.MessageSender
+import ar.edu.listaCorreoMailSingleton.observers.MessageSender
 import java.util.Map
 import java.util.HashMap
 import java.util.HashSet

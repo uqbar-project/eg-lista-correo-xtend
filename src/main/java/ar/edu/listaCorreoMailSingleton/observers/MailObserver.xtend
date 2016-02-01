@@ -1,6 +1,6 @@
-package ar.edu.listaCorreo.observers
+package ar.edu.listaCorreoMailSingleton.observers
 
-import ar.edu.listaCorreo.Post
+import ar.edu.listaCorreoMailSingleton.Post
 
 class MailObserver implements PostObserver {
 	// No usamos la variable messageSender

@@ -1,4 +1,4 @@
-package ar.edu.listaCorreo.exceptions
+package ar.edu.listaCorreoMailSingleton.exceptions
 
 class BusinessException extends RuntimeException {
 	
