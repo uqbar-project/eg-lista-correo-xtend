@@ -1,6 +1,6 @@
-package ar.edu.listaCorreo.observers
+package ar.edu.listaCorreoMailServiceLocator.observers
 
-import ar.edu.listaCorreo.Post
+import ar.edu.listaCorreoMailServiceLocator.Post
 
 class BloqueoUsuarioVerbosoObserver implements PostObserver {
 	

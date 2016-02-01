@@ -1,8 +1,8 @@
-package ar.edu.listaCorreo.observers
+package ar.edu.listaCorreoMailServiceLocator.observers
 
 import java.util.List
 import java.util.ArrayList
-import ar.edu.listaCorreo.Post
+import ar.edu.listaCorreoMailServiceLocator.Post
 
 class MalasPalabrasObserver implements PostObserver {
 

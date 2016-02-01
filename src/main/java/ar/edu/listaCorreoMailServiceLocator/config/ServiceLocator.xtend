@@ -1,6 +1,6 @@
-package ar.edu.listaCorreo.config
+package ar.edu.listaCorreoMailServiceLocator.config
 
-import ar.edu.listaCorreo.observers.MessageSender
+import ar.edu.listaCorreoMailServiceLocator.observers.MessageSender
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors

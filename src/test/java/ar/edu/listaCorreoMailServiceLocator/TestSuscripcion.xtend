@@ -1,4 +1,4 @@
-package ar.edu.listaCorreo
+package ar.edu.listaCorreoMailServiceLocator
 
 import org.junit.Before
 import org.junit.Test

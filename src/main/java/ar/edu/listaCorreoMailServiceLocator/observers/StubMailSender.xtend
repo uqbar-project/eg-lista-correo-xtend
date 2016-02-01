@@ -1,4 +1,4 @@
-package ar.edu.listaCorreo.observers
+package ar.edu.listaCorreoMailServiceLocator.observers
 
 import java.util.HashMap
 import java.util.HashSet

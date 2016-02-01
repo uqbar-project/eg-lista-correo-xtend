@@ -1,12 +1,12 @@
-package ar.edu.listaCorreo
+package ar.edu.listaCorreoMailServiceLocator
 
-import ar.edu.listaCorreo.config.ServiceLocator
-import ar.edu.listaCorreo.exceptions.BusinessException
-import ar.edu.listaCorreo.observers.Mail
-import ar.edu.listaCorreo.observers.MailObserver
-import ar.edu.listaCorreo.observers.MalasPalabrasObserver
-import ar.edu.listaCorreo.observers.MessageSender
-import ar.edu.listaCorreo.observers.StubMailSender
+import ar.edu.listaCorreoMailServiceLocator.config.ServiceLocator
+import ar.edu.listaCorreoMailServiceLocator.exceptions.BusinessException
+import ar.edu.listaCorreoMailServiceLocator.observers.Mail
+import ar.edu.listaCorreoMailServiceLocator.observers.MailObserver
+import ar.edu.listaCorreoMailServiceLocator.observers.MalasPalabrasObserver
+import ar.edu.listaCorreoMailServiceLocator.observers.MessageSender
+import ar.edu.listaCorreoMailServiceLocator.observers.StubMailSender
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

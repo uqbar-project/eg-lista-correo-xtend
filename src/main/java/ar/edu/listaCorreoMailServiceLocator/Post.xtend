@@ -1,4 +1,4 @@
-package ar.edu.listaCorreo
+package ar.edu.listaCorreoMailServiceLocator
 
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors

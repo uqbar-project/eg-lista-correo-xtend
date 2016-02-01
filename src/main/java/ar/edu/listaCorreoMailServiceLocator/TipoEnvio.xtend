@@ -1,4 +1,4 @@
-package ar.edu.listaCorreo
+package ar.edu.listaCorreoMailServiceLocator
 
 abstract class TipoEnvio {
 	

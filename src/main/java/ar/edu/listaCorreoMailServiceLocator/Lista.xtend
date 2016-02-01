@@ -1,9 +1,9 @@
-package ar.edu.listaCorreo
+package ar.edu.listaCorreoMailServiceLocator
 
-import ar.edu.listaCorreo.observers.PostObserver
-import ar.edu.listaCorreo.suscripcion.SuscripcionAbierta
-import ar.edu.listaCorreo.suscripcion.SuscripcionCerrada
-import ar.edu.listaCorreo.suscripcion.TipoSuscripcion
+import ar.edu.listaCorreoMailServiceLocator.observers.PostObserver
+import ar.edu.listaCorreoMailServiceLocator.suscripcion.SuscripcionAbierta
+import ar.edu.listaCorreoMailServiceLocator.suscripcion.SuscripcionCerrada
+import ar.edu.listaCorreoMailServiceLocator.suscripcion.TipoSuscripcion
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors

@@ -1,4 +1,4 @@
-package ar.edu.listaCorreo.observers
+package ar.edu.listaCorreoMailServiceLocator.observers
 
 import org.eclipse.xtend.lib.annotations.Accessors
 
