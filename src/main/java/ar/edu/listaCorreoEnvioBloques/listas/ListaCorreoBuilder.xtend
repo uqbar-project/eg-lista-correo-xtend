@@ -1,4 +1,4 @@
-package ar.org.uqbar.disenio.listas
+package ar.edu.listaCorreoEnvioBloques.listas
 
 class ListaCorreoBuilder {
 

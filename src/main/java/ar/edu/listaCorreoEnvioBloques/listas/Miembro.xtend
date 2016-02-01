@@ -1,6 +1,6 @@
-package ar.org.uqbar.disenio.listas
+package ar.edu.listaCorreoEnvioBloques.listas
 
-import ar.org.uqbar.disenio.emails.Email
+import ar.edu.listaCorreoEnvioBloques.emails.Email
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors

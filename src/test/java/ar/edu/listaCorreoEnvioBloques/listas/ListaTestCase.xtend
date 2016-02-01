@@ -1,4 +1,4 @@
-package ar.org.uqbar.disenio.listas
+package ar.edu.listaCorreoEnvioBloques.listas
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.junit.After

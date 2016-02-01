@@ -1,4 +1,4 @@
-package ar.org.uqbar.disenio.emails
+package ar.edu.listaCorreoEnvioBloques.emails
 
 interface EmailSender {
 	def void send(Email email)

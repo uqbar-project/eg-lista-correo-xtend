@@ -1,7 +1,7 @@
-package ar.org.uqbar.disenio.listas
+package ar.edu.listaCorreoEnvioBloques.listas
 
-import ar.org.uqbar.disenio.emails.Email
-import ar.org.uqbar.disenio.emails.EmailSender
+import ar.edu.listaCorreoEnvioBloques.emails.Email
+import ar.edu.listaCorreoEnvioBloques.emails.EmailSender
 import java.util.ArrayList
 import org.junit.Assert
 

@@ -1,11 +1,10 @@
-package ar.org.uqbar.disenio.emails
+package ar.edu.listaCorreoEnvioBloques.listas
 
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class Email {
+class Post {
 	String from
-	String to
 	String subject
 	String content
 }
