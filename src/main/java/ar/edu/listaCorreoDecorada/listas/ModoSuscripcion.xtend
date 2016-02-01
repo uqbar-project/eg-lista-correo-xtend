@@ -1,4 +1,4 @@
-package ar.org.uqbar.disenio.listas.decorator
+package ar.edu.listaCorreoDecorada.listas
 
 import org.eclipse.xtend.lib.annotations.Accessors
 

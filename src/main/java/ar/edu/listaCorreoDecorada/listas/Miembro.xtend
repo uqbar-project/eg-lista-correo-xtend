@@ -1,6 +1,6 @@
-package ar.org.uqbar.disenio.listas.decorator
+package ar.edu.listaCorreoDecorada.listas
 
-import ar.org.uqbar.disenio.emails.decorator.Email
+import ar.edu.listaCorreoDecorada.emails.Email
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors

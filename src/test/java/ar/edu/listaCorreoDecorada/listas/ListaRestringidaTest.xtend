@@ -1,19 +1,19 @@
-package ar.org.uqbar.disenio.listas.decorator
+package ar.edu.listaCorreoDecorada.listas
 
 import org.junit.Before
 import org.junit.Test
 
-class ListaLibreTest extends ListaTestCase<ListaCorreo>{
+class ListaRestringidaTest extends ListaTestCase {
 	
-	@Before 
+	@Before
 	override def void setUp() {
 		super.setUp()
-		lista = new ListaCorreoFactory().abiertaYLibre()	
+		lista = new ListaCorreoFactory().abiertaYRestringida
 		lista.suscribir(leo)
 		lista.suscribir(nico)
 		lista.suscribir(pablo)
 	}
-	
+
 	@Test
 	def testEnviarMiembro() {
 		var post = new Post => [
@@ -22,10 +22,10 @@ class ListaLibreTest extends ListaTestCase<ListaCorreo>{
 			subject = "Yeah"
 		]
 		lista.enviar(post)
-		emailSenderMock.assertEmailEnviado("Se esperaba que se envien 2 mails", 2, post)	
+		emailSenderMock.assertEmailEnviado("Se esperaba que se envien 2 mails", 2, post)
 	}
-	
-	@Test
+
+	@Test(expected=typeof(RuntimeException))
 	def testEnviarNoMiembro() {
 		var post = new Post => [
 			content = "Hola"
@@ -33,6 +33,6 @@ class ListaLibreTest extends ListaTestCase<ListaCorreo>{
 			subject = "Yeah"
 		]
 		lista.enviar(post)
-		emailSenderMock.assertEmailEnviado("Se esperaba que se envien 3 mails", 3, post)	
+		emailSenderMock.assertEmailEnviado("Se esperaba que se envien 3 mails", 3, post)
 	}
 }

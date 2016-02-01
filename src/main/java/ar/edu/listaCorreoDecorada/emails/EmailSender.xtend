@@ -1,4 +1,4 @@
-package ar.org.uqbar.disenio.emails.decorator
+package ar.edu.listaCorreoDecorada.emails
 
 interface EmailSender {
 	def void send(Email email)

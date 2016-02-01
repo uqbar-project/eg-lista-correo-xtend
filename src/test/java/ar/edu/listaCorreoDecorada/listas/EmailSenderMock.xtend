@@ -1,7 +1,7 @@
-package ar.org.uqbar.disenio.listas.decorator
+package ar.edu.listaCorreoDecorada.listas
 
-import ar.org.uqbar.disenio.emails.decorator.Email
-import ar.org.uqbar.disenio.emails.decorator.EmailSender
+import ar.edu.listaCorreoDecorada.emails.Email
+import ar.edu.listaCorreoDecorada.emails.EmailSender
 import java.util.ArrayList
 import org.junit.Assert
 
