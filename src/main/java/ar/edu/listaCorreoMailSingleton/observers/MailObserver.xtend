@@ -8,11 +8,12 @@ class MailObserver implements PostObserver {
 	override send(Post post) {
 		val lista = post.destino
 		lista.getMailsDestino(post).forEach [ mailDestino |
-			var mail = new Mail
-			mail.from = post.emisor.mail
-			mail.titulo = "[" + lista.encabezado + "] nuevo post"
-			mail.message = post.mensaje
-			mail.to = mailDestino
+			val mail = new Mail => [
+				from = post.emisor.mail
+				titulo = "[" + lista.encabezado + "] nuevo post"
+				message = post.mensaje
+				to = mailDestino
+			]
 			// messageSender se reemplaza por la instancia concreta singleton
 			StubMailSender.instance.send(mail)
 		]

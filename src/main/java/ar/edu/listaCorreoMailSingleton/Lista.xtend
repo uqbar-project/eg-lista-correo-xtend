@@ -34,10 +34,10 @@ class Lista {
 	}	
 
 	def static Lista listaCerrada() {
-		var lista = new Lista
-		lista.tipoEnvio = new ListaRestringida
-		lista.tipoSuscripcion = new SuscripcionCerrada
-		lista
+		new Lista => [
+			tipoEnvio = new ListaRestringida
+			tipoSuscripcion = new SuscripcionCerrada
+		]
 	}	
 
 	/** 

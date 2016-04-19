@@ -98,7 +98,7 @@ class TestEnvioPosts {
 	@Test
 	def void testEnvioPostAListaAlumnosLlegaATodosLosOtrosSuscriptos() {
 		//creacion de mock
-		var mockedMailSender = mock(typeof(MessageSender))
+		val mockedMailSender = mock(typeof(MessageSender))
 		//no le puedo pasar el mockedMailSender!!
 		//listaAlumnos.agregarPostObserver(new MailObserver(mockedMailSender))
 		//este test está destinado a fallar

@@ -15,17 +15,13 @@ class StubMailSender implements MessageSender {
 	}
 	
 	def simularEnvioMail(String from, String message) {
-		var mensajes = mailsDe(from)
+		val mensajes = mailsDe(from)
 		mensajes.add(message)
 		mailsEnviados.put(from, mensajes)
 	}
 	
 	def Set<String> mailsDe(String from) {
-		var Set<String> mensajes = mailsEnviados.get(from)
-		if (mensajes == null) {
-			mensajes = new HashSet<String>
-		}
-		mensajes
+		mailsEnviados.get(from) ?: new HashSet<String> 
 	}
 	
 	/**********************************************
