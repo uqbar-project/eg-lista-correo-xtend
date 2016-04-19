@@ -49,17 +49,20 @@ class TestEnvioPosts {
 		fede = new Miembro("fede@uni.edu.ar")
 
 		/** en la lista de profes están los profes */
-		listaProfes.agregarMiembro(dodain)
-		listaProfes.agregarMiembro(nico)
-		listaProfes.agregarMiembro(deby)
-		listaProfes.agregarPostObserver(new MailObserver)
+		listaProfes => [
+			agregarMiembro(dodain)
+			agregarMiembro(nico)
+			agregarMiembro(deby)
+			agregarPostObserver(new MailObserver)
+		]
 
-		/** en la de alumnos hay alumnos y profes */
-		listaAlumnos.agregarMiembro(dodain)
-		listaAlumnos.agregarMiembro(deby)
-		listaAlumnos.agregarMiembro(fede)
-		listaAlumnos.agregarPostObserver(new MailObserver)
-		listaAlumnos.agregarPostObserver(malasPalabrasObserver)
+		listaAlumnos => [
+			agregarMiembro(dodain)
+			agregarMiembro(nico)
+			agregarMiembro(deby)
+			agregarPostObserver(new MailObserver)
+			agregarPostObserver(malasPalabrasObserver)
+		]
 
 		mensajeAlumno = new Post(alumno, "Hola, queria preguntar que es la recursividad", listaProfes)
 		mensajeDodainAlumnos = new Post(dodain,
