@@ -5,17 +5,17 @@ class ListaCorreoBuilder {
 	private ListaCorreo lista = new ListaCorreo()
 
 	def ListaCorreoBuilder abierta() {
-		return this.modoSucripcion(new ModoAbierto)
+		this.modoSucripcion(new ModoAbierto)
 	}
 
 	def ListaCorreoBuilder cerrada() {
-		return this.modoSucripcion(new ModoCerrado)
+		this.modoSucripcion(new ModoCerrado)
 	}
 
 	def ListaCorreoBuilder modoSucripcion(ModoSuscripcion modo) {
 		modo.lista = lista
 		lista.modoSuscripcion = modo
-		return this
+		this
 	}
 
 	def ListaCorreoBuilder restringida() {

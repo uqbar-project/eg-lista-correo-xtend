@@ -9,9 +9,11 @@ class ListaRestringidaTest extends ListaTestCase {
 	override def void setUp() {
 		super.setUp()
 		lista = new ListaCorreoBuilder().abierta().restringida().build()
-		lista.suscribir(leo)
-		lista.suscribir(nico)
-		lista.suscribir(pablo)
+		lista => [
+			suscribir(leo)
+			suscribir(nico)
+			suscribir(pablo)
+		]
 	}
 
 	@Test

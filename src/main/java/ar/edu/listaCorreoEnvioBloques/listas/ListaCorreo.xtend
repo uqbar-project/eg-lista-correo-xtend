@@ -19,12 +19,12 @@ class ListaCorreo {
 	}
 	
 	def remitentePertenece(Post post) {
-		return miembros.exists([Miembro miembro | miembro.esRemitente(post)])
+		miembros.exists([Miembro miembro | miembro.esRemitente(post)])
 	}
 	
 	def void enviar(Post post) {
 		this.validator.validate(post, this)
-		var destinatarios = miembros.filter([Miembro miembro | !miembro.esRemitente(post)])
+		val destinatarios = miembros.filter([Miembro miembro | !miembro.esRemitente(post)])
 		for(Miembro miembro : destinatarios) {
 			miembro.enviar(post)
 		}	
