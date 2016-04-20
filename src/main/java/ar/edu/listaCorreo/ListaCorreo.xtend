@@ -25,7 +25,7 @@ class ListaCorreo {
 	/** Constructor default: toda lista es abierta */
 	new() {
 		miembros = new ArrayList<Miembro>
-		tipoEnvio = new ListaAbierta
+		tipoEnvio = new EnvioAbierto
 		postObservers = new ArrayList<PostObserver>
 		tipoSuscripcion = new SuscripcionAbierta
 	}
@@ -36,8 +36,7 @@ class ListaCorreo {
 
 	def static ListaCorreo listaCerrada() {
 		new ListaCorreo => [
-			tipoEnvio = new ListaRestringida
-			tipoSuscripcion = new SuscripcionCerrada
+			tipoEnvio = new EnvioRestringido			tipoSuscripcion = new SuscripcionCerrada
 		]
 	}	
 
