@@ -5,7 +5,7 @@ import ar.edu.listaCorreoMailSingleton.observers.Mail
 import ar.edu.listaCorreoMailSingleton.observers.MailObserver
 import ar.edu.listaCorreoMailSingleton.observers.MalasPalabrasObserver
 import ar.edu.listaCorreoMailSingleton.observers.MessageSender
-import ar.edu.listaCorreoMailSingleton.observers.StubMailSender
+import ar.edu.listaCorreoSimple.envioMails.StubMailSender
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -15,8 +15,8 @@ import static org.mockito.Mockito.*
 
 class TestEnvioPosts {
 
-	Lista listaProfes
-	Lista listaAlumnos
+	ListaCorreo listaProfes
+	ListaCorreo listaAlumnos
 	Miembro dodain
 	Miembro nico
 	Miembro deby
@@ -36,8 +36,8 @@ class TestEnvioPosts {
 	def void init() {
 
 		/** Listas de correo */
-		listaAlumnos = Lista.listaAbierta()
-		listaProfes = Lista.listaCerrada()
+		listaAlumnos = ListaCorreo.listaAbierta()
+		listaProfes = ListaCorreo.listaCerrada()
 
 		/** Profes */
 		dodain = new Miembro("fernando.dodino@gmail.com")
@@ -76,13 +76,13 @@ class TestEnvioPosts {
 	/*************************************************************/
 	@Test(expected=typeof(BusinessException))
 	def void alumnoNoPuedeEnviarPostAListaProfes() {
-		listaProfes.enviar(mensajeAlumno)
+		listaProfes.recibirPost(mensajeAlumno)
 	}
 
 	@Test
 	def void alumnoPuedeEnviarMailAListaAbierta() {
 		Assert.assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
-		listaAlumnos.enviar(mensajeAlumno)
+		listaAlumnos.recibirPost(mensajeAlumno)
 		Assert.assertEquals(1, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
 	}
 
@@ -90,7 +90,7 @@ class TestEnvioPosts {
 	def void alumnoEnviaMailConMalaPalabra() {
 		val mensajeFeo = new Post(alumno, "Cuál es loco! Me tienen podrido", listaAlumnos)
 		malasPalabrasObserver.agregarMalaPalabra("podrido")
-		listaAlumnos.enviar(mensajeFeo)
+		listaAlumnos.recibirPost(mensajeFeo)
 		Assert.assertEquals(1, malasPalabrasObserver.mensajesConMalasPalabras.size)
 	}
 
@@ -108,7 +108,7 @@ class TestEnvioPosts {
 		listaAlumnos.agregarPostObserver(new MailObserver)
 
 		// un alumno envía un mensaje a la lista
-		listaAlumnos.enviar(mensajeDodainAlumnos)
+		listaAlumnos.recibirPost(mensajeDodainAlumnos)
 
 		//verificacion
 		//test de comportamiento, verifico que se enviaron 2 mails 

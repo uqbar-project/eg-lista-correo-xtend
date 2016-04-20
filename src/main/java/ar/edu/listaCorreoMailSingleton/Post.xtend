@@ -7,10 +7,10 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class Post {
 
 	Miembro emisor
-	Lista destino
+	ListaCorreo destino
 	String mensaje
 
-	new(Miembro pEmisor, String pMensaje, Lista pDestino) {
+	new(Miembro pEmisor, String pMensaje, ListaCorreo pDestino) {
 		emisor = pEmisor
 		mensaje = pMensaje
 		destino = pDestino

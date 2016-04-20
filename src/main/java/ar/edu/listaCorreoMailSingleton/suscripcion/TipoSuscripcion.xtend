@@ -1,11 +1,11 @@
 package ar.edu.listaCorreoMailSingleton.suscripcion
 
 import ar.edu.listaCorreoMailSingleton.Miembro
-import ar.edu.listaCorreoMailSingleton.Lista
+import ar.edu.listaCorreoMailSingleton.ListaCorreo
 
 interface TipoSuscripcion {
 	
-	 def void suscribir(Miembro miembro, Lista lista)
-	 def void aprobarSuscripcion(Miembro miembro, Lista lista)
+	 def void suscribir(Miembro miembro, ListaCorreo lista)
+	 def void aprobarSuscripcion(Miembro miembro, ListaCorreo lista)
 	 
 }
