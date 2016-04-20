@@ -8,15 +8,17 @@ class ListaLibreTest extends ListaTestCase<ListaCorreo>{
 	@Before 
 	override def void setUp() {
 		super.setUp()
-		lista = new ListaCorreoFactory().abiertaYLibre()	
-		lista.suscribir(leo)
-		lista.suscribir(nico)
-		lista.suscribir(pablo)
+		lista = new ListaCorreoFactory().abiertaYLibre()
+		lista => [
+			suscribir(leo)
+			suscribir(nico)
+			suscribir(pablo)
+		]	
 	}
 	
 	@Test
 	def testEnviarMiembro() {
-		var post = new Post => [
+		val post = new Post => [
 			content = "Hola"
 			from = leo.mailDefault
 			subject = "Yeah"
@@ -27,7 +29,7 @@ class ListaLibreTest extends ListaTestCase<ListaCorreo>{
 	
 	@Test
 	def testEnviarNoMiembro() {
-		var post = new Post => [
+		val post = new Post => [
 			content = "Hola"
 			from = "fulano@gmail.com"
 			subject = "Yeah"

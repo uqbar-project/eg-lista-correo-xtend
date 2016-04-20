@@ -7,7 +7,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class ListaCerradaImpl extends ListaCorreoImpl implements ListaCerrada {
 	
-	var List<Miembro> miembrosPendientes = new ArrayList<Miembro>()
+	List<Miembro> miembrosPendientes = new ArrayList<Miembro>()
 
 	override suscribir(Miembro miembro) {
 		miembrosPendientes.add(miembro)

@@ -7,16 +7,16 @@ import org.junit.Before
 @Accessors
 class ListaTestCase<T extends ListaCorreo> {
 	
-	var EmailSenderMock emailSenderMock = new EmailSenderMock()
+	EmailSenderMock emailSenderMock = new EmailSenderMock()
 	
 	T lista
-	var Miembro leo = new Miembro => [
+	val Miembro leo = new Miembro => [
 		mailDefault = "lgassman@gmail.com"
 	]
-	var Miembro nico = new Miembro => [
+	val Miembro nico = new Miembro => [
 		mailDefault = "npasserini@gmail.com"
 	]
-	var Miembro pablo = new Miembro => [
+	val Miembro pablo = new Miembro => [
 		mailDefault = "tesonep@gmail.com"
 	]
 	

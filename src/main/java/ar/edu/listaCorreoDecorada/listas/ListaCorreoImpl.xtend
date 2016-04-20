@@ -6,7 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class ListaCorreoImpl implements ListaCorreo {
-	var List<Miembro> miembros = new ArrayList<Miembro>()
+	List<Miembro> miembros = new ArrayList<Miembro>()
 	
 	override def void suscribir(Miembro miembro) {
 		this.agregarMiembro(miembro)
@@ -21,7 +21,7 @@ class ListaCorreoImpl implements ListaCorreo {
 	}
 	
 	override def void enviar(Post post) {
-		var destinatarios = miembros.filter([Miembro miembro | !miembro.esRemitente(post)])
+		val destinatarios = miembros.filter([Miembro miembro | !miembro.esRemitente(post)])
 		for(Miembro miembro : destinatarios) {
 			miembro.enviar(post)
 		}	
