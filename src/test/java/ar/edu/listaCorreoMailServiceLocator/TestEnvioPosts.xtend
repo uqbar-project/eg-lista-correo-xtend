@@ -1,40 +1,58 @@
 package ar.edu.listaCorreoMailServiceLocator
 
+import ar.edu.listaCorreoMailServiceLocator.ListaCorreo
+import ar.edu.listaCorreoMailServiceLocator.Miembro
+import ar.edu.listaCorreoMailServiceLocator.Post
 import ar.edu.listaCorreoMailServiceLocator.config.ServiceLocator
+import ar.edu.listaCorreoMailServiceLocator.envioMails.MailException
+import ar.edu.listaCorreoMailServiceLocator.envioMails.StubMailSender
 import ar.edu.listaCorreoMailServiceLocator.exceptions.BusinessException
 import ar.edu.listaCorreoMailServiceLocator.observers.Mail
 import ar.edu.listaCorreoMailServiceLocator.observers.MailObserver
 import ar.edu.listaCorreoMailServiceLocator.observers.MalasPalabrasObserver
 import ar.edu.listaCorreoMailServiceLocator.observers.MessageSender
-import ar.edu.listaCorreoMailServiceLocator.observers.StubMailSender
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatcher
 
 import static org.mockito.Matchers.*
 import static org.mockito.Mockito.*
 
 class TestEnvioPosts {
 
-	Lista listaProfes
-	Lista listaAlumnos
+	ListaCorreo listaProfes
+	ListaCorreo listaAlumnos
+	ListaCorreo listaVacia
 	Miembro dodain
 	Miembro nico
 	Miembro deby
 	Miembro alumno
 	Miembro fede
-	Post mensajeAlumno
+	Post mensajeAlumnoRecursividad
+	Post mensajeAlumnoRecursividadOk
+	Post mensajeAlumnoOrdenSuperior
 	Post mensajeDodainAlumnos
+	Post mensajeAListaVacia
 	Post mensajeDodainProfes
-	StubMailSender stubMailSender = new StubMailSender
-	MalasPalabrasObserver malasPalabrasObserver = new MalasPalabrasObserver
+	StubMailSender stubMailSender
+	MessageSender mockedMailSender
+	MalasPalabrasObserver malasPalabrasObserver
 
 	@Before
 	def void init() {
+		mockedMailSender = mock(typeof(MessageSender))
+		stubMailSender = new StubMailSender
+		malasPalabrasObserver = new MalasPalabrasObserver
 
+		/** ************************************************/
+		/** Configuramos ServiceLocator para tener el stub */	
+		ServiceLocator.instance.messageSender = stubMailSender
+		/** ************************************************/
+		
 		/** Listas de correo */
-		listaAlumnos = Lista.listaAbierta()
-		listaProfes = Lista.listaCerrada()
+		listaAlumnos = ListaCorreo.listaAbierta()
+		listaProfes = ListaCorreo.listaCerrada()
 
 		/** Profes */
 		dodain = new Miembro("fernando.dodino@gmail.com")
@@ -45,16 +63,11 @@ class TestEnvioPosts {
 		alumno = new Miembro("alumno@uni.edu.ar")
 		fede = new Miembro("fede@uni.edu.ar")
 
-		/** ************************************************/
-		/** Configuramos ServiceLocator para tener el stub */	
-		ServiceLocator.instance.messageSender = stubMailSender
-		/** ************************************************/
-		
 		/** en la lista de profes están los profes */
 		listaProfes.agregarMiembro(dodain)
 		listaProfes.agregarMiembro(nico)
 		listaProfes.agregarMiembro(deby)
-		listaProfes.agregarPostObserver(new MailObserver)
+		listaProfes.agregarPostObserver(new MailObserver) // ya no necesito pasar al stubMailSender
 
 		/** en la de alumnos hay alumnos y profes */
 		listaAlumnos.agregarMiembro(dodain)
@@ -63,10 +76,16 @@ class TestEnvioPosts {
 		listaAlumnos.agregarPostObserver(new MailObserver)
 		listaAlumnos.agregarPostObserver(malasPalabrasObserver)
 
-		mensajeAlumno = new Post(alumno, "Hola, queria preguntar que es la recursividad", listaProfes)
+		listaVacia = ListaCorreo.listaAbierta()
+		
+		mensajeAlumnoRecursividad = new Post(alumno, "Hola, queria preguntar que es la recursividad", listaProfes)
 		mensajeDodainAlumnos = new Post(dodain,
 			"Para explicarte recursividad tendría que explicarte qué es la recursividad", listaAlumnos)
+		mensajeAlumnoRecursividadOk = new Post(alumno, "Hola, queria preguntar que es la recursividad", listaAlumnos)
+		mensajeAlumnoOrdenSuperior = new Post(alumno, "Orden superior tiene que ver con religion? Gracias!",
+			listaAlumnos)
 		mensajeDodainProfes = new Post(dodain, "Cuantos TPs hacemos?", listaProfes)
+		mensajeAListaVacia = new Post(dodain, "Sale la nueva de Sillicon Valley!", listaVacia)
 	}
 
 	/*************************************************************/
@@ -75,13 +94,13 @@ class TestEnvioPosts {
 	/*************************************************************/
 	@Test(expected=typeof(BusinessException))
 	def void alumnoNoPuedeEnviarPostAListaProfes() {
-		listaProfes.enviar(mensajeAlumno)
+		listaProfes.recibirPost(mensajeAlumnoRecursividad)
 	}
 
 	@Test
 	def void alumnoPuedeEnviarMailAListaAbierta() {
 		Assert.assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
-		listaAlumnos.enviar(mensajeAlumno)
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
 		Assert.assertEquals(1, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
 	}
 
@@ -89,32 +108,108 @@ class TestEnvioPosts {
 	def void alumnoEnviaMailConMalaPalabra() {
 		val mensajeFeo = new Post(alumno, "Cuál es loco! Me tienen podrido", listaAlumnos)
 		malasPalabrasObserver.agregarMalaPalabra("podrido")
-		listaAlumnos.enviar(mensajeFeo)
+		listaAlumnos.recibirPost(mensajeFeo)
 		Assert.assertEquals(1, malasPalabrasObserver.mensajesConMalasPalabras.size)
 	}
 
+	@Test
+	def void alumnoEnvia2MailsYSeRegistranAmbosMailsEnElStub() {
+		Assert.assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
+		listaAlumnos.recibirPost(mensajeAlumnoOrdenSuperior)
+		Assert.assertEquals(2, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
+	}
+
+	@Test
+	def void alumnoQuiereEnviarDosMailsPeroElSegundoFallaYSoloSeEnviaUno() {
+		Assert.assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
+
+		// Con Mockito
+		// Decoramos al stub para hacer que devuelva error cuando envíe el segundo mensaje
+		val stubMailSenderDecorado = spy(stubMailSender)
+		// Cambiamos la referencia del ServiceLocator en forma indirecta (no cambiamos el observer)
+		ServiceLocator.instance.messageSender = stubMailSenderDecorado
+		
+		// Acá decimos declarativamente: Que tire MailException
+		// - cuando al objeto stubMailSenderDecorado
+		// - reciba un mensaje send
+		// - con un parametro igual al Mail que le pasamos como ejemplo
+		//   (ademas tuvimos que redefinir el equals del Mail para que detecte
+		//    dos mails iguales si tienen el mismo mensaje)
+		doThrow(typeof(MailException)).when(stubMailSenderDecorado).send(
+			new Mail => [
+				message = mensajeAlumnoOrdenSuperior.mensaje
+			])
+
+		try {
+			listaAlumnos => [
+				recibirPost(mensajeAlumnoRecursividad)
+				recibirPost(mensajeAlumnoOrdenSuperior)
+			]
+			Assert.assertTrue("Deberia haber tirado error", false)
+		} catch (MailException e) {
+			// Esperamos que tire error
+		}
+		// Qué testeamos, que no haya un try/catch vacío en Lista
+		Assert.assertEquals(1, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
+	}
+	
 	/*************************************************************/
 	/*                     TESTS CON MOCKS                       */
 	/*                  TEST DE COMPORTAMIENTO                   */
 	/*************************************************************/
 	@Test
 	def void testEnvioPostAListaAlumnosLlegaATodosLosOtrosSuscriptos() {
-		//creacion de mock
-		var mockedMailSender = mock(typeof(MessageSender))
-
-		/** ************************************************/
-		// paso el mailSender mockeado al service locator
 		ServiceLocator.instance.messageSender = mockedMailSender
-		// ya no es necesario agregar un postobserver con el mailSender mockeado
-		// listaAlumnos.agregarPostObserver(new MailObserver)
-		/** ************************************************/
-		
+
 		// un alumno envía un mensaje a la lista
-		listaAlumnos.enviar(mensajeDodainAlumnos)
+		listaAlumnos.recibirPost(mensajeDodainAlumnos)
+
 		//verificacion
 		//test de comportamiento, verifico que se enviaron 2 mails 
 		// a fede y a deby, no así a dodi que fue el que envió el post
 		verify(mockedMailSender, times(2)).send(any(typeof(Mail)))
+	}
+
+	@Test
+	def void testAlQueEnviaPostNoLeLlegaMail() {
+		ServiceLocator.instance.messageSender = mockedMailSender
+		listaAlumnos => [
+			recibirPost(mensajeDodainAlumnos)
+		]
+		// busco que nunca hayan enviado un mail al emisor del post: fdodino
+		verify(mockedMailSender, never).send(argThat(new MailEnviadoA(dodain.mail)))
+	}
+
+	@Test
+	def void testListaVaciaNoLeLlegaNingunPostANadie() {
+		ServiceLocator.instance.messageSender = mockedMailSender
+		listaVacia => [
+			recibirPost(mensajeAListaVacia)
+		]
+		verify(mockedMailSender, never).send(any(Mail))
+	}
+
+	@Test
+	def void enviarMailAListaAlumnos() {
+		ServiceLocator.instance.messageSender = mockedMailSender
+		listaAlumnos => [
+			recibirPost(mensajeAlumnoRecursividad)
+		]
+		verify(mockedMailSender, atLeastOnce).send(any(Mail))
+	}	
+}
+
+class MailEnviadoA extends ArgumentMatcher<Mail> {
+	
+	String mailDestino
+	
+	new(String mailDestino) {
+		this.mailDestino = mailDestino
+	}
+	
+	override matches(Object argument) {
+		(argument as Mail).to.equalsIgnoreCase(mailDestino)
 	}
 	
 }

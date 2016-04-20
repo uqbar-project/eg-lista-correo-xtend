@@ -6,8 +6,8 @@ import org.junit.Assert
 
 class TestSuscripcion {
 
-	Lista listaProfes
-	Lista listaAlumnos
+	ListaCorreo listaProfes
+	ListaCorreo listaAlumnos
 	Miembro dodain
 	Miembro nico
 	Miembro deby
@@ -17,8 +17,8 @@ class TestSuscripcion {
 	@Before
 	def void init() {
 		/** Listas de correo */
-		listaAlumnos = Lista.listaAbierta()
-		listaProfes = Lista.listaCerrada()
+		listaAlumnos = ListaCorreo.listaAbierta()
+		listaProfes = ListaCorreo.listaCerrada()
 		/** Profes */
 		dodain = new Miembro("fernando.dodino@gmail.com")
 		nico = new Miembro("nicolas.passerini@gmail.com")

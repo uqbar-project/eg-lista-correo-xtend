@@ -9,7 +9,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class Lista {
+class ListaCorreo {
 	List<Miembro> miembros
 	TipoEnvio tipoEnvio
 	List<PostObserver> postObservers
@@ -24,20 +24,20 @@ class Lista {
 	/** Constructor default: toda lista es abierta */
 	new() {
 		miembros = new ArrayList<Miembro>
-		tipoEnvio = new ListaAbierta
+		tipoEnvio = new EnvioAbierto
 		postObservers = new ArrayList<PostObserver>
 		tipoSuscripcion = new SuscripcionAbierta
 	}
 	
-	def static Lista listaAbierta() {
-		new Lista
+	def static ListaCorreo listaAbierta() {
+		new ListaCorreo
 	}	
 
-	def static Lista listaCerrada() {
-		var lista = new Lista
-		lista.tipoEnvio = new ListaRestringida
-		lista.tipoSuscripcion = new SuscripcionCerrada
-		lista
+	def static ListaCorreo listaCerrada() {
+		new ListaCorreo => [
+			tipoEnvio = new EnvioRestringido
+			tipoSuscripcion = new SuscripcionCerrada
+		]
 	}	
 
 	/** 
@@ -62,7 +62,7 @@ class Lista {
 	 * CASO DE USO: Envío de post
 	 *  
 	 **/
-	def void enviar(Post post) {
+	def void recibirPost(Post post) {
 		tipoEnvio.validarEnvio(post, this)
 		postObservers.forEach [ sender | sender.send(post) ]
 	}
