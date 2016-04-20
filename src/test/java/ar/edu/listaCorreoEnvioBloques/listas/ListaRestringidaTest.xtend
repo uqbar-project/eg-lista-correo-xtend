@@ -18,7 +18,7 @@ class ListaRestringidaTest extends ListaTestCase {
 
 	@Test
 	def testEnviarMiembro() {
-		var post = new Post => [
+		val post = new Post => [
 			content = "Hola"
 			from = leo.mailDefault
 			subject = "Yeah"
@@ -29,7 +29,7 @@ class ListaRestringidaTest extends ListaTestCase {
 
 	@Test(expected=typeof(RuntimeException))
 	def testEnviarNoMiembro() {
-		var post = new Post => [
+		val post = new Post => [
 			content = "Hola"
 			from = "fulano@gmail.com"
 			subject = "Yeah"

@@ -18,14 +18,14 @@ class ListaCerradaTestCase extends ListaTestCase {
 		lista.suscribir(leo)
 		Assert.assertFalse("Se esperaba que leo no este en la lista", lista.miembros.contains(leo))
 		Assert.assertFalse("Se esperaba que pablo no este en la lista", lista.miembros.contains(leo))
-		var modo = lista.modoSuscripcion as ModoCerrado 
+		val modo = lista.modoSuscripcion as ModoCerrado 
 		Assert.assertTrue("Se esperaba que " + leo+ "este pendiente", modo.miembrosPendientes.contains(leo))
 	}
 	
 	@Test
 	def testAprobar() {
 		lista.suscribir(leo)
-		var modo = lista.modoSuscripcion as ModoCerrado
+		val modo = lista.modoSuscripcion as ModoCerrado
 		modo.aprobar(leo)
 		Assert.assertTrue("Se esperaba que leo este en la lista", lista.miembros.contains(leo))
 		Assert.assertFalse("Se esperaba que " + leo+ " no este pendiente", modo.miembrosPendientes.contains(leo))	
@@ -34,7 +34,7 @@ class ListaCerradaTestCase extends ListaTestCase {
 	@Test
 	def testRechazar() {
 		lista.suscribir(leo)
-		var modo = lista.modoSuscripcion as ModoCerrado
+		val modo = lista.modoSuscripcion as ModoCerrado
 		modo.rechazar(leo)
 		Assert.assertFalse("Se esperaba que leo no este en la lista", lista.miembros.contains(leo))
 		Assert.assertFalse("Se esperaba que " + leo+ " no este pendiente", modo.miembrosPendientes.contains(leo))

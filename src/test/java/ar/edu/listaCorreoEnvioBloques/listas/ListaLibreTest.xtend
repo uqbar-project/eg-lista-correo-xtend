@@ -16,7 +16,7 @@ class ListaLibreTest extends ListaTestCase {
 	
 	@Test
 	def testEnviarMiembro() {
-		var post = new Post => [
+		val post = new Post => [
 			content = "Hola"
 			from = leo.mailDefault
 			subject = "Yeah"
@@ -27,7 +27,7 @@ class ListaLibreTest extends ListaTestCase {
 	
 	@Test
 	def testEnviarNoMiembro() {
-		var post = new Post => [
+		val post = new Post => [
 			content = "Hola"
 			from = "fulano@gmail.com"
 			subject = "Yeah"
