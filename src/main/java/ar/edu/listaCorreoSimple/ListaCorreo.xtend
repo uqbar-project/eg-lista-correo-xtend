@@ -7,7 +7,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class Lista {
+class ListaCorreo {
 
 	List<Miembro> miembros
 	TipoEnvio tipoEnvio
@@ -24,25 +24,26 @@ class Lista {
 		tipoEnvio = new EnvioAbierto
 	}
 
-	def static Lista listaAbierta() {
-		new Lista
+
+	def static ListaCorreo listaAbierta() {
+		new ListaCorreo
 	}
 
-	def static Lista listaCerrada() {
-		new Lista => [
+	def static ListaCorreo listaCerrada() {
+		new ListaCorreo => [
 			tipoEnvio = new EnvioRestringido
 		]
 	}
 
 	/** 
-	 * CASO DE USO: Envío de post
+	 * CASO DE USO: Recibir un post
 	 *  
 	 **/
-	def void enviar(Post post) {
+	def void recibirPost(Post post) {
 		tipoEnvio.validarEnvio(post, this)
 		val lista = post.destino
 		val mailsDestino = lista.getMailsDestino(post)
-		(mailsDestino).forEach [ mailDestino |
+		mailsDestino.forEach [ mailDestino |
 			var mail = new Mail => [
 				from = post.emisor.mail
 				titulo = "[" + lista.encabezado + "] nuevo post"

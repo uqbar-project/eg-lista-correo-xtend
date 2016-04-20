@@ -1,4 +1,4 @@
-package ar.edu.listaCorreoSimple
+package ar.edu.listaCorreoSimple.envioMails
 
 import ar.edu.listaCorreoSimple.envioMails.Mail
 import ar.edu.listaCorreoSimple.envioMails.MailSender
