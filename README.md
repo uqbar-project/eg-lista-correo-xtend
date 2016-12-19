@@ -6,7 +6,7 @@
 ## Dominio
 Queremos modelar una lista de correo
 
-* cuya suscripción pueda ser moderada por un administrador o libre
+* cuya suscripción pueda ser moderada por un administrador o bien ser libre
 * cuyo envío de mails pueda ser abierto o cerrado
 
 Dejamos aquí el link al [enunciado completo](https://docs.google.com/document/d/1o0Bc2Az38ii7YzbsDVX-v8bu3-eBbIdsJqKABMArqv0/edit?usp=sharing)
@@ -23,7 +23,7 @@ Utiliza el framework [Mockito](http://site.mockito.org/) para trabajar con mocks
 
 ## Branches de soluciones alternativas
 
-* branch [__service-locator__](https://github.com/uqbar-project/eg-lista-correo-xtend/tree/simple): es una versión simplificada del ejercicio, que no utiliza observers ya que solo le interesa enviar mail como única acción al recibir un mensaje.
+* branch [__simple__](https://github.com/uqbar-project/eg-lista-correo-xtend/tree/simple): es una versión simplificada del ejercicio, que no utiliza observers ya que solo le interesa enviar mail como única acción al recibir un mensaje.
 * branch [__master__](https://github.com/uqbar-project/eg-lista-correo-xtend/): tenés la solución que trabaja la **inyección de dependencias** del MessageSender **en el constructor** del MailObserver
 * branch [__singleton__](https://github.com/uqbar-project/eg-lista-correo-xtend/tree/singleton): el componente que envía mails es un Stub Singleton y dificulta seriamente los tests (falla el test de mockito porque no se puede cambiar dinámicamente la implementación del messageSender)
 * branch [__service-locator__](https://github.com/uqbar-project/eg-lista-correo-xtend/tree/service-locator): implementa el patrón arquitectural [Service Locator](https://en.wikipedia.org/wiki/Service_locator_pattern) como una forma de desacoplar el MessageSender a utilizar para el test unitario vs. el que usaríamos en la aplicación.
