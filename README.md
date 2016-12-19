@@ -1,7 +1,7 @@
 
 # Ejercicio de Diseño - Lista de Correo
 
-![image](images/mailList.png) 
+<img src="images/mailList.png" height="120px" width="120px"/>
 
 ## Dominio
 Queremos modelar una lista de correo
