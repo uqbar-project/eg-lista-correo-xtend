@@ -10,6 +10,5 @@ after_success:
 
 notifications:
   email:
-    - fernando.dodino@gmail.com
-    - grisoliarodrigo@gmail.com
+    - fdodino@github.com
 
