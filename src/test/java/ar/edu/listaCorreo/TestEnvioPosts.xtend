@@ -12,8 +12,9 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatcher
 
-import static org.mockito.Matchers.*
+import static org.mockito.ArgumentMatchers.*
 import static org.mockito.Mockito.*
+import ar.edu.listaCorreo.observers.BloqueoUsuarioVerbosoObserver
 
 class TestEnvioPosts {
 
@@ -55,17 +56,22 @@ class TestEnvioPosts {
 		fede = new Miembro("fede@uni.edu.ar")
 
 		/** en la lista de profes están los profes */
-		listaProfes.agregarMiembro(dodain)
-		listaProfes.agregarMiembro(nico)
-		listaProfes.agregarMiembro(deby)
-		listaProfes.agregarPostObserver(new MailObserver(stubMailSender))
+		listaProfes => [
+			agregarMiembro(dodain)
+			agregarMiembro(nico)
+			agregarMiembro(deby)
+			agregarPostObserver(new MailObserver(stubMailSender))
+		]
 
 		/** en la de alumnos hay alumnos y profes */
-		listaAlumnos.agregarMiembro(dodain)
-		listaAlumnos.agregarMiembro(deby)
-		listaAlumnos.agregarMiembro(fede)
-		listaAlumnos.agregarPostObserver(new MailObserver(stubMailSender))
-		listaAlumnos.agregarPostObserver(malasPalabrasObserver)
+		listaAlumnos => [
+			agregarMiembro(dodain)
+			agregarMiembro(deby)
+			agregarMiembro(fede)
+			agregarPostObserver(new MailObserver(stubMailSender))
+			agregarPostObserver(malasPalabrasObserver)
+			agregarPostObserver(new BloqueoUsuarioVerbosoObserver)
+		]
 
 		listaVacia = ListaCorreo.listaAbierta()
 		
@@ -109,6 +115,18 @@ class TestEnvioPosts {
 		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
 		listaAlumnos.recibirPost(mensajeAlumnoOrdenSuperior)
 		Assert.assertEquals(2, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
+	}
+
+	@Test
+	def void alumnoEsBloqueadoPorEnviarMuchosMensajes() {
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
+		Assert.assertTrue(alumno.envioMuchosMensajes)
+		Assert.assertTrue(alumno.bloqueado)
 	}
 
 	@Test
@@ -191,7 +209,7 @@ class TestEnvioPosts {
 	}	
 }
 
-class MailEnviadoA extends ArgumentMatcher<Mail> {
+class MailEnviadoA implements ArgumentMatcher<Mail> {
 	
 	String mailDestino
 	
@@ -199,8 +217,8 @@ class MailEnviadoA extends ArgumentMatcher<Mail> {
 		this.mailDestino = mailDestino
 	}
 	
-	override matches(Object argument) {
-		(argument as Mail).to.equalsIgnoreCase(mailDestino)
+	override matches(Mail mail) {
+		mail.to.equalsIgnoreCase(mailDestino)
 	}
 	
 }

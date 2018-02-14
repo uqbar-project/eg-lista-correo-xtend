@@ -35,6 +35,24 @@ class TestSuscripcion {
 	}
 		
 	@Test
+	def void miembroEstaPorDefectoDesbloqueado() {
+		Assert.assertFalse(dodain.bloqueado)	
+	}
+
+	@Test
+	def void miembroNoMandaMuchosMensajes() {
+		Assert.assertFalse(dodain.envioMuchosMensajes)	
+	}
+	
+	@Test
+	def void bloquearYDesbloquearMiembro() {
+		dodain.bloquear()
+		Assert.assertTrue(dodain.bloqueado)
+		dodain.desbloquear()
+		Assert.assertFalse(dodain.bloqueado)
+	}
+	
+	@Test
 	def void suscripcionAListaAbiertaEsAutomatica() {
 		Assert.assertFalse(listaAlumnos.estaSuscripto(deby))
 		listaAlumnos.suscribir(deby)
@@ -58,7 +76,7 @@ class TestSuscripcion {
 	
 	@Test(expected=typeof(UnsupportedOperationException))
 	def void aprobarSuscripcionDeListaAbiertaNoTieneSentido() {
-		listaAlumnos.aprobarSuscripcion(deby)		
+		listaAlumnos.aprobarSuscripcion(deby)
 	}
-			
+
 }

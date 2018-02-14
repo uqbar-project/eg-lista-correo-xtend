@@ -9,8 +9,8 @@ class Miembro {
 	int mailsEnviados = 0
 	boolean bloqueado = false
 	
-	new(String pMail) {
-		mail = pMail
+	new(String _mail) {
+		mail = _mail
 	}
 	
 	def boolean envioMuchosMensajes() {
@@ -23,6 +23,10 @@ class Miembro {
 
 	def void desbloquear() {
 		bloqueado = false
+	}
+	
+	def envioMail() {
+		mailsEnviados++
 	}
 	
 }

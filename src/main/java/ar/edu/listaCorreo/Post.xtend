@@ -23,5 +23,9 @@ class Post {
 	def List<String> palabrasDelMensaje() {
 		mensaje.split(" ")
 	}
+	
+	def enviarMail() {
+		emisor.envioMail
+	}
 
 }
