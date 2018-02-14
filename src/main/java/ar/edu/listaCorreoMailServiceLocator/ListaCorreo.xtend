@@ -64,11 +64,16 @@ class ListaCorreo {
 	 **/
 	def void recibirPost(Post post) {
 		tipoEnvio.validarEnvio(post, this)
+		post.enviar
 		postObservers.forEach [ sender | sender.send(post) ]
 	}
 	
 	def void agregarPostObserver(PostObserver postObserver) {
 		postObservers.add(postObserver)
+	}
+	
+	def void eliminarObservers() {
+		postObservers.clear
 	}
 	
 	def Iterable<Miembro> getDestinatarios(Post post) {

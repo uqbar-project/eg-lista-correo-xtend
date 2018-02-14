@@ -7,6 +7,7 @@ import ar.edu.listaCorreoMailServiceLocator.config.ServiceLocator
 import ar.edu.listaCorreoMailServiceLocator.envioMails.MailException
 import ar.edu.listaCorreoMailServiceLocator.envioMails.StubMailSender
 import ar.edu.listaCorreoMailServiceLocator.exceptions.BusinessException
+import ar.edu.listaCorreoMailServiceLocator.observers.BloqueoUsuarioVerbosoObserver
 import ar.edu.listaCorreoMailServiceLocator.observers.Mail
 import ar.edu.listaCorreoMailServiceLocator.observers.MailObserver
 import ar.edu.listaCorreoMailServiceLocator.observers.MalasPalabrasObserver
@@ -16,7 +17,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatcher
 
-import static org.mockito.Matchers.*
+import static org.mockito.ArgumentMatchers.*
 import static org.mockito.Mockito.*
 
 class TestEnvioPosts {
@@ -44,11 +45,6 @@ class TestEnvioPosts {
 		mockedMailSender = mock(typeof(MessageSender))
 		stubMailSender = new StubMailSender
 		malasPalabrasObserver = new MalasPalabrasObserver
-
-		/** ************************************************/
-		/** Configuramos ServiceLocator para tener el stub */	
-		ServiceLocator.instance.messageSender = stubMailSender
-		/** ************************************************/
 		
 		/** Listas de correo */
 		listaAlumnos = ListaCorreo.listaAbierta()
@@ -63,18 +59,28 @@ class TestEnvioPosts {
 		alumno = new Miembro("alumno@uni.edu.ar")
 		fede = new Miembro("fede@uni.edu.ar")
 
+		/** ************************************************/
+		/** Configuramos ServiceLocator para tener el stub */	
+		ServiceLocator.instance.messageSender = stubMailSender
+		/** ************************************************/
+
 		/** en la lista de profes están los profes */
-		listaProfes.agregarMiembro(dodain)
-		listaProfes.agregarMiembro(nico)
-		listaProfes.agregarMiembro(deby)
-		listaProfes.agregarPostObserver(new MailObserver) // ya no necesito pasar al stubMailSender
+		listaProfes => [
+			agregarMiembro(dodain)
+			agregarMiembro(nico)
+			agregarMiembro(deby)
+			agregarPostObserver(new MailObserver)
+		]
 
 		/** en la de alumnos hay alumnos y profes */
-		listaAlumnos.agregarMiembro(dodain)
-		listaAlumnos.agregarMiembro(deby)
-		listaAlumnos.agregarMiembro(fede)
-		listaAlumnos.agregarPostObserver(new MailObserver)
-		listaAlumnos.agregarPostObserver(malasPalabrasObserver)
+		listaAlumnos => [
+			agregarMiembro(dodain)
+			agregarMiembro(deby)
+			agregarMiembro(fede)
+			agregarPostObserver(new MailObserver)
+			agregarPostObserver(malasPalabrasObserver)
+			agregarPostObserver(new BloqueoUsuarioVerbosoObserver)
+		]
 
 		listaVacia = ListaCorreo.listaAbierta()
 		
@@ -121,6 +127,18 @@ class TestEnvioPosts {
 	}
 
 	@Test
+	def void alumnoEsBloqueadoPorEnviarMuchosMensajes() {
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
+		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
+		Assert.assertTrue(alumno.envioMuchosMensajes)
+		Assert.assertTrue(alumno.bloqueado)
+	}
+
+	@Test
 	def void alumnoQuiereEnviarDosMailsPeroElSegundoFallaYSoloSeEnviaUno() {
 		Assert.assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
 
@@ -129,7 +147,7 @@ class TestEnvioPosts {
 		val stubMailSenderDecorado = spy(stubMailSender)
 		// Cambiamos la referencia del ServiceLocator en forma indirecta (no cambiamos el observer)
 		ServiceLocator.instance.messageSender = stubMailSenderDecorado
-		
+				
 		// Acá decimos declarativamente: Que tire MailException
 		// - cuando al objeto stubMailSenderDecorado
 		// - reciba un mensaje send
@@ -143,6 +161,7 @@ class TestEnvioPosts {
 
 		try {
 			listaAlumnos => [
+				agregarPostObserver(new MailObserver)
 				recibirPost(mensajeAlumnoRecursividad)
 				recibirPost(mensajeAlumnoOrdenSuperior)
 			]
@@ -161,6 +180,8 @@ class TestEnvioPosts {
 	@Test
 	def void testEnvioPostAListaAlumnosLlegaATodosLosOtrosSuscriptos() {
 		ServiceLocator.instance.messageSender = mockedMailSender
+		listaAlumnos.eliminarObservers
+		listaAlumnos.agregarPostObserver(new MailObserver)
 
 		// un alumno envía un mensaje a la lista
 		listaAlumnos.recibirPost(mensajeDodainAlumnos)
@@ -175,6 +196,7 @@ class TestEnvioPosts {
 	def void testAlQueEnviaPostNoLeLlegaMail() {
 		ServiceLocator.instance.messageSender = mockedMailSender
 		listaAlumnos => [
+			agregarPostObserver(new MailObserver)
 			recibirPost(mensajeDodainAlumnos)
 		]
 		// busco que nunca hayan enviado un mail al emisor del post: fdodino
@@ -185,6 +207,7 @@ class TestEnvioPosts {
 	def void testListaVaciaNoLeLlegaNingunPostANadie() {
 		ServiceLocator.instance.messageSender = mockedMailSender
 		listaVacia => [
+			agregarPostObserver(new MailObserver)
 			recibirPost(mensajeAListaVacia)
 		]
 		verify(mockedMailSender, never).send(any(Mail))
@@ -194,13 +217,14 @@ class TestEnvioPosts {
 	def void enviarMailAListaAlumnos() {
 		ServiceLocator.instance.messageSender = mockedMailSender
 		listaAlumnos => [
+			agregarPostObserver(new MailObserver)
 			recibirPost(mensajeAlumnoRecursividad)
 		]
 		verify(mockedMailSender, atLeastOnce).send(any(Mail))
 	}	
 }
 
-class MailEnviadoA extends ArgumentMatcher<Mail> {
+class MailEnviadoA implements ArgumentMatcher<Mail> {
 	
 	String mailDestino
 	
@@ -208,8 +232,8 @@ class MailEnviadoA extends ArgumentMatcher<Mail> {
 		this.mailDestino = mailDestino
 	}
 	
-	override matches(Object argument) {
-		(argument as Mail).to.equalsIgnoreCase(mailDestino)
+	override matches(Mail mail) {
+		mail.to.equalsIgnoreCase(mailDestino)
 	}
 	
 }

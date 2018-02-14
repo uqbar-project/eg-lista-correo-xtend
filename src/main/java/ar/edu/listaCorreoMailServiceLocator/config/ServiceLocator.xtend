@@ -18,7 +18,7 @@ class ServiceLocator {
 	}
 
 	def static getInstance() {
-		if (instance == null) {
+		if (instance === null) {
 			instance = new ServiceLocator
 		}	
 		instance

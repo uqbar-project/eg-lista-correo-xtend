@@ -17,6 +17,10 @@ class Miembro {
 		mailsEnviados >= 5
 	}
 	
+	def void enviarMail() {
+		mailsEnviados++	
+	}
+	
 	def void bloquear() {
 		bloqueado = true
 	}
