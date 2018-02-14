@@ -3,15 +3,16 @@ package ar.edu.listaCorreoDecorada.listas
 import org.junit.Before
 import org.junit.Test
 
-class ListaRestringidaTest extends ListaTestCase {
+class ListaRestringidaTest extends ListaTestCase<ListaCorreo> {
 	
 	@Before
 	override def void setUp() {
 		super.setUp()
-		lista = new ListaCorreoFactory().abiertaYRestringida
-		lista.suscribir(leo)
-		lista.suscribir(nico)
-		lista.suscribir(pablo)
+		lista = new ListaCorreoFactory().abiertaYRestringida => [
+			suscribir(leo)
+			suscribir(nico)
+			suscribir(pablo)
+		]
 	}
 
 	@Test

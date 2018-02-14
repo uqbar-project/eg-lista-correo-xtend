@@ -7,7 +7,7 @@ class ListaCorreoFactory {
 	}
 
 	def ListaCerrada cerradaYLibre() {
-		return new ListaCerradaImpl
+		return new ListaCerrada
 	}
 
 
@@ -16,7 +16,7 @@ class ListaCorreoFactory {
 	}
 
 	def ListaCorreo cerradaYRestringida() {
-		return new ListaCorreoRestringida(new ListaCerradaImpl)
+		return new ListaCorreoRestringida(new ListaCerrada)
 	}
 
 }
