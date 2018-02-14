@@ -9,8 +9,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class ListaCorreo {
 
-	List<Miembro> miembros
-	TipoEnvio tipoEnvio
+	List<Miembro> miembros = newArrayList
+	TipoEnvio tipoEnvio = new EnvioAbierto
 	String encabezado
 	MailSender mailSender
 
@@ -19,12 +19,6 @@ class ListaCorreo {
 	 
 	 */
 	/** Constructor default: toda lista es abierta */
-	new() {
-		miembros = new ArrayList<Miembro>
-		tipoEnvio = new EnvioAbierto
-	}
-
-
 	def static ListaCorreo listaAbierta() {
 		new ListaCorreo
 	}
@@ -55,15 +49,15 @@ class ListaCorreo {
 
 	}
 
-	def Iterable<Miembro> getDestinatarios(Post post) {
-		miembros.filter[miembro|!miembro.equals(post.emisor)]
+	def getDestinatarios(Post post) {
+		miembros.filter[miembro|!miembro.equals(post.emisor)].toList
 	}
 
 	def getMailsDestino(Post post) {
 		getDestinatarios(post).map[miembro|miembro.mail]
 	}
 
-	def boolean estaSuscripto(Miembro miembro) {
+	def estaSuscripto(Miembro miembro) {
 		miembros.contains(miembro)
 	}
 

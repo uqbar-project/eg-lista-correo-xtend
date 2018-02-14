@@ -12,7 +12,7 @@ import org.mockito.ArgumentMatcher
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.stubbing.Answer
 
-import static org.mockito.Matchers.*
+import static org.mockito.ArgumentMatchers.*
 import static org.mockito.Mockito.*
 
 class TestEnvioPosts {
@@ -208,7 +208,7 @@ class ImprimirPorConsola implements Answer<Void> {
 
 }
 
-class MailEnviadoA extends ArgumentMatcher<Mail> {
+class MailEnviadoA implements ArgumentMatcher<Mail> {
 
 	String mailDestino
 
@@ -216,8 +216,8 @@ class MailEnviadoA extends ArgumentMatcher<Mail> {
 		this.mailDestino = mailDestino
 	}
 
-	override matches(Object argument) {
-		(argument as Mail).to.equalsIgnoreCase(mailDestino)
+	override matches(Mail mail) {
+		mail.to.equalsIgnoreCase(mailDestino)
 	}
 
 }
