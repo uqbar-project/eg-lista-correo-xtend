@@ -64,6 +64,7 @@ class ListaCorreo {
 	 **/
 	def void recibirPost(Post post) {
 		tipoEnvio.validarEnvio(post, this)
+		post.enviar
 		postObservers.forEach [ sender | sender.send(post) ]
 	}
 	
@@ -71,15 +72,15 @@ class ListaCorreo {
 		postObservers.add(postObserver)
 	}
 	
-	def Iterable<Miembro> getDestinatarios(Post post) {
-		miembros.filter [ miembro | !miembro.equals(post.emisor) ]
+	def getDestinatarios(Post post) {
+		miembros.filter [ miembro | !miembro.equals(post.emisor) ].toList
 	}
 	
 	def getMailsDestino(Post post) {
 		getDestinatarios(post).map [ miembro | miembro.mail ]
 	}
 	
-	def boolean estaSuscripto(Miembro miembro) {
+	def estaSuscripto(Miembro miembro) {
 		miembros.contains(miembro)	
 	}
 	

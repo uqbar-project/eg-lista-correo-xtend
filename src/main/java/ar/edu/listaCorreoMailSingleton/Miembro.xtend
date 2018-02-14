@@ -25,4 +25,8 @@ class Miembro {
 		bloqueado = false
 	}
 	
+	def enviarMail() {
+		mailsEnviados++
+	}
+	
 }
