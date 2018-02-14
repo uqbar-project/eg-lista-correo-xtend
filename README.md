@@ -1,7 +1,7 @@
 
 # Ejercicio de Diseño - Lista de Correo
 
-[![Build Status](https://travis-ci.org/uqbar-project/eg-lista-correo-xtend.svg?branch=master)](https://travis-ci.org/uqbar-project/eg-lista-correo-xtend) [![Coverage Status](https://coveralls.io/repos/github/uqbar-project/eg-lista-correo-xtend/badge.svg?branch=master)](https://coveralls.io/github/uqbar-project/eg-lista-correo-xtend?branch=master)
+[![Build Status](https://travis-ci.org/uqbar-project/eg-lista-correo-xtend.svg?branch=master)](https://travis-ci.org/uqbar-project/eg-lista-correo-xtend) [![Coverage Status](https://coveralls.io/repos/github/uqbar-project/eg-lista-correo-xtend/badge.svg?branch=master)](https://coveralls.io/github/uqbar-project/eg-lista-correo-xtend?branch=master) 
 
 <img src="images/mailList.png" height="120px" width="120px"/>
 
