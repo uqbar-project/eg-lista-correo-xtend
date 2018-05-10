@@ -21,7 +21,7 @@ class TestEnvioPosts {
 		agregarPostObserver(new MailObserver)
 ```
 
-Cuando necesitamos reemplazar el _stub_ del message sender por un _mock_, no podemos hacerlo porque el MailObserver, ya que el constructor dejó de publicar el parámetro para ingresar el mailSender.
+Cuando necesitamos reemplazar el _stub_ del message sender por un _mock_, no podemos hacerlo. El constructor del MailObserver ya no acepta el parámetro mailSender.
 
 ```xtend
 	@Test
