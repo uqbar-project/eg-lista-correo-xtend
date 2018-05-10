@@ -17,7 +17,7 @@ class StubMailSender implements MessageSender {
 	static StubMailSender instance
 	
 	static def getInstance() {
-		if (instance == null) {
+		if (instance === null) {
 			instance = new StubMailSender
 		}
 		instance
