@@ -16,6 +16,9 @@ class TestEnvioPosts {
 
 	@Before
 	def void init() {
+		...
+		stubMailSender = new StubMailSender
+		...
 		/** ************************************************/
 		/** Configuramos ServiceLocator para tener el stub */	
 		ServiceLocator.instance.messageSender = stubMailSender
