@@ -6,8 +6,8 @@ import ar.edu.listaCorreo.Post
 class MailObserver implements PostObserver {
 	MessageSender messageSender
 
-	new(MessageSender pMessageSender) {
-		messageSender = pMessageSender
+	new(MessageSender _messageSender) {
+		messageSender = _messageSender
 	}
 
 	override send(Post post) {

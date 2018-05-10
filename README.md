@@ -34,3 +34,63 @@ Utiliza el framework [Mockito](http://site.mockito.org/) para trabajar con mocks
 * branch [__strategy-bloques__](https://github.com/uqbar-project/eg-lista-correo-xtend/tree/strategy-bloques): utiliza strategies con bloques de código que implementan una interfaz Validador + un builder para construir la lista
 * branch [__decorator__](https://github.com/uqbar-project/eg-lista-correo-xtend/tree/decorator): decora la lista común para generar listas de envío restringido. **Atención: ** La solución es compleja y difícil de seguir, no es recomendable para estudiar por primera vez el Decorator.
 
+## Objetivo de _master_
+
+En este branch, el test que valida el envío de mails asigna un messageSender por defecto:
+
+```xtend
+class TestEnvioPosts {
+	...
+	@Before
+	def void init() {
+		mockedMailSender = mock(typeof(MessageSender))
+		stubMailSender = new StubMailSender
+```
+
+La prueba específica de un MailSender que se mockea con el framework Mockito se hace incorporando un nuevo observer que tiene _constructor injection_, es decir que en el constructor le paso la dependencia al mail sender:
+
+```xtend
+	@Test
+	def void testEnvioPostAListaAlumnosLlegaATodosLosOtrosSuscriptos() {
+		listaAlumnos.agregarPostObserver(new MailObserver(mockedMailSender))
+
+		// un alumno envía un mensaje a la lista
+		listaAlumnos.recibirPost(mensajeDodainAlumnos)
+
+		//verificacion
+		//test de comportamiento, verifico que se enviaron 2 mails 
+		// a fede y a deby, no así a dodi que fue el que envió el post
+		verify(mockedMailSender, times(2)).send(any(typeof(Mail)))
+	}
+```
+
+Entonces al MailObserver le inyectamos en el constructor el messageSender que utiliza el método send():
+
+```xtend
+class MailObserver implements PostObserver {
+	MessageSender messageSender
+
+	new(MessageSender _messageSender) {
+		messageSender = _messageSender
+	}
+
+	override send(Post post) {
+		val lista = post.destino
+		lista.getMailsDestino(post).forEach [ mailDestino |
+			val mail = new Mail => [
+				from = post.emisor.mail
+				titulo = "[" + lista.encabezado + "] nuevo post"
+				message = post.mensaje
+				to = mailDestino
+			]
+			messageSender.send(mail)
+		]
+	}
+```
+
+## Gráfico general
+
+A continuación dejamos un gráfico general de la solución:
+
+![imagen](images/DI-ConstructorInjection.png)
+
