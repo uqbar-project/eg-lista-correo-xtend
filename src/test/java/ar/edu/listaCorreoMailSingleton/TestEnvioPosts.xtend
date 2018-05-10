@@ -10,7 +10,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-import static org.mockito.Matchers.*
+import static org.mockito.ArgumentMatchers.*
 import static org.mockito.Mockito.*
 
 class TestEnvioPosts {
