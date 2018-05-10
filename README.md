@@ -7,7 +7,7 @@ Ver [README](https://github.com/uqbar-project/eg-lista-correo-xtend/blob/master/
 
 ## Objetivo
 
-En este branch implementamos el patrón arquitectural [ServiceLocator](https://en.wikipedia.org/wiki/Service_locator_pattern) [1](http://www.oracle.com/technetwork/java/servicelocator-137181.html), que consiste en implementar una clase Singleton que disponibiliza referencias globales de manera de poderlas asignar o acceder desde un único punto de acceso.
+En este branch implementamos el patrón arquitectural [ServiceLocator](https://en.wikipedia.org/wiki/Service_locator_pattern) [-1-](http://www.oracle.com/technetwork/java/servicelocator-137181.html), que consiste en implementar una clase Singleton que disponibiliza referencias globales de manera de poder asignarlas o accederlas desde un único punto de acceso.
 
 Así, el test que valida el envío de mails asigna un messageSender por defecto:
 
