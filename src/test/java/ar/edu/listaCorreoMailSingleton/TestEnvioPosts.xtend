@@ -5,7 +5,7 @@ import ar.edu.listaCorreoMailSingleton.observers.Mail
 import ar.edu.listaCorreoMailSingleton.observers.MailObserver
 import ar.edu.listaCorreoMailSingleton.observers.MalasPalabrasObserver
 import ar.edu.listaCorreoMailSingleton.observers.MessageSender
-import ar.edu.listaCorreoSimple.envioMails.StubMailSender
+import ar.edu.listaCorreoMailSingleton.observers.StubMailSender
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -21,10 +21,8 @@ class TestEnvioPosts {
 	Miembro nico
 	Miembro deby
 	Miembro alumno
-	Miembro fede
 	Post mensajeAlumno
 	Post mensajeDodainAlumnos
-	Post mensajeDodainProfes
 	// ya no puedo crear un nuevo StubMailSender, esta línea no compila porque el constructor es privado
 	// StubMailSender stubMailSender = new StubMailSender
 	// entonces ...
@@ -46,7 +44,6 @@ class TestEnvioPosts {
 
 		/** Alumnos **/
 		alumno = new Miembro("alumno@uni.edu.ar")
-		fede = new Miembro("fede@uni.edu.ar")
 
 		/** en la lista de profes están los profes */
 		listaProfes => [
@@ -67,7 +64,6 @@ class TestEnvioPosts {
 		mensajeAlumno = new Post(alumno, "Hola, queria preguntar que es la recursividad", listaProfes)
 		mensajeDodainAlumnos = new Post(dodain,
 			"Para explicarte recursividad tendría que explicarte qué es la recursividad", listaAlumnos)
-		mensajeDodainProfes = new Post(dodain, "Cuantos TPs hacemos?", listaProfes)
 	}
 
 	/*************************************************************/

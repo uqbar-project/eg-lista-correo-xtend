@@ -1,7 +1,6 @@
 package ar.edu.listaCorreoMailSingleton.observers
 
 import ar.edu.listaCorreoMailSingleton.Post
-import ar.edu.listaCorreoSimple.envioMails.StubMailSender
 
 class MailObserver implements PostObserver {
 	// No usamos la variable messageSender
@@ -21,3 +20,4 @@ class MailObserver implements PostObserver {
 	}
 
 }
+

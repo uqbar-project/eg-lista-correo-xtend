@@ -11,7 +11,6 @@ class TestSuscripcion {
 	Miembro dodain
 	Miembro nico
 	Miembro deby
-	Miembro alumno
 	Miembro fede
 
 	@Before
@@ -24,7 +23,6 @@ class TestSuscripcion {
 		nico = new Miembro("nicolas.passerini@gmail.com")
 		deby = new Miembro("debyfortini@gmail.com")
 		/** Alumnos **/
-		alumno = new Miembro("alumno@uni.edu.ar")
 		fede = new Miembro("fede@uni.edu.ar")
 		/** en la lista de profes están los profes */
 		listaProfes.agregarMiembro(dodain)
