@@ -30,7 +30,6 @@ class TestEnvioPosts {
 	Post mensajeAlumnoOrdenSuperior
 	Post mensajeDodainAlumnos
 	Post mensajeAListaVacia
-	Post mensajeDodainProfes
 	StubMailSender stubMailSender = new StubMailSender
 	MailSender mockedMailSender
 
@@ -75,7 +74,6 @@ class TestEnvioPosts {
 		mensajeAlumnoRecursividadOk = new Post(alumno, "Hola, queria preguntar que es la recursividad", listaAlumnos)
 		mensajeAlumnoOrdenSuperior = new Post(alumno, "Orden superior tiene que ver con religion? Gracias!",
 			listaAlumnos)
-		mensajeDodainProfes = new Post(dodain, "Cuantos TPs hacemos?", listaProfes)
 		mensajeAListaVacia = new Post(dodain, "Sale la nueva de Sillicon Valley!", listaVacia)
 	}
 

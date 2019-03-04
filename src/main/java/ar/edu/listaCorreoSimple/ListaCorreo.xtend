@@ -2,7 +2,6 @@ package ar.edu.listaCorreoSimple
 
 import ar.edu.listaCorreoSimple.envioMails.Mail
 import ar.edu.listaCorreoSimple.envioMails.MailSender
-import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
