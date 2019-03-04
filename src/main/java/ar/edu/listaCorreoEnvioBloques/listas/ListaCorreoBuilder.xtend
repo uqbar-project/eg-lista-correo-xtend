@@ -2,7 +2,7 @@ package ar.edu.listaCorreoEnvioBloques.listas
 
 class ListaCorreoBuilder {
 
-	private ListaCorreo lista = new ListaCorreo()
+	ListaCorreo lista = new ListaCorreo()
 
 	def ListaCorreoBuilder abierta() {
 		this.modoSucripcion(new ModoAbierto)

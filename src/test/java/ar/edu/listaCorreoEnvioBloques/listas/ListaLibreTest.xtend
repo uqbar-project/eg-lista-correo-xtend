@@ -6,7 +6,7 @@ import org.junit.Test
 class ListaLibreTest extends ListaTestCase {
 	
 	@Before 
-	override def void setUp() {
+	override void setUp() {
 		super.setUp()
 		lista = new ListaCorreoBuilder().abierta().libre().build()	
 		lista.suscribir(leo)
