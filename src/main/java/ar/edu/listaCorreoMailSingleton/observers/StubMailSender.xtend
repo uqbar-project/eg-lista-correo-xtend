@@ -10,6 +10,8 @@ import java.util.Set
 class StubMailSender implements MessageSender {
 	Map<String, Set<String>> mailsEnviados
 	
+	// Parte específica del Singleton
+	 
 	private new() {
 		mailsEnviados = new HashMap<String, Set<String>>
 	}
@@ -22,6 +24,8 @@ class StubMailSender implements MessageSender {
 		}
 		instance
 	} 
+	
+	//
 	
 	override send(Mail mail) {
 		simularEnvioMail(mail.from, mail.message)

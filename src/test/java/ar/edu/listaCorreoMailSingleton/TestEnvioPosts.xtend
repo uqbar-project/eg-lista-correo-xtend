@@ -70,7 +70,7 @@ class TestEnvioPosts {
 	/*                     TESTS CON STUBS                       */
 	/*                      TEST DE ESTADO                       */
 	/*************************************************************/
-	@Test(expected=typeof(BusinessException))
+	@Test(expected=BusinessException)
 	def void alumnoNoPuedeEnviarPostAListaProfes() {
 		listaProfes.recibirPost(mensajeAlumno)
 	}
@@ -97,7 +97,7 @@ class TestEnvioPosts {
 	@Test
 	def void testEnvioPostAListaAlumnosLlegaATodosLosOtrosSuscriptos() {
 		//creacion de mock
-		val mockedMailSender = mock(typeof(MessageSender))
+		val mockedMailSender = mock(MessageSender)
 		//no le puedo pasar el mockedMailSender!!
 		//listaAlumnos.agregarPostObserver(new MailObserver(mockedMailSender))
 		//este test está destinado a fallar
@@ -109,7 +109,7 @@ class TestEnvioPosts {
 		//verificacion
 		//test de comportamiento, verifico que se enviaron 2 mails 
 		// a fede y a deby, no así a dodi que fue el que envió el post
-		verify(mockedMailSender, times(2)).send(any(typeof(Mail)))
+		verify(mockedMailSender, times(2)).send(any(Mail))
 	}
 	
 }
