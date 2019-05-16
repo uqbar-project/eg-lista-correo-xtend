@@ -1,6 +1,5 @@
 package ar.edu.listaCorreo.observers
 
-import ar.edu.listaCorreo.observers.PostObserver
 import ar.edu.listaCorreo.Post
 
 class MailObserver implements PostObserver {

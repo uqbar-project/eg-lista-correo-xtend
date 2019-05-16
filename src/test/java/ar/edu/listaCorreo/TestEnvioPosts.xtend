@@ -36,7 +36,7 @@ class TestEnvioPosts {
 
 	@Before
 	def void init() {
-		mockedMailSender = mock(typeof(MessageSender))
+		mockedMailSender = mock(MessageSender)
 		stubMailSender = new StubMailSender
 		malasPalabrasObserver = new MalasPalabrasObserver
 		
@@ -85,7 +85,7 @@ class TestEnvioPosts {
 	/*                     TESTS CON STUBS                       */
 	/*                      TEST DE ESTADO                       */
 	/*************************************************************/
-	@Test(expected=typeof(BusinessException))
+	@Test(expected=BusinessException)
 	def void alumnoNoPuedeEnviarPostAListaProfes() {
 		listaProfes.recibirPost(mensajeAlumnoRecursividad)
 	}
@@ -139,7 +139,7 @@ class TestEnvioPosts {
 		// - con un parametro igual al Mail que le pasamos como ejemplo
 		//   (ademas tuvimos que redefinir el equals del Mail para que detecte
 		//    dos mails iguales si tienen el mismo mensaje)
-		doThrow(typeof(MailException)).when(stubMailSenderDecorado).send(
+		doThrow(MailException).when(stubMailSenderDecorado).send(
 			new Mail => [
 				message = mensajeAlumnoOrdenSuperior.mensaje
 			])
@@ -173,7 +173,7 @@ class TestEnvioPosts {
 		//verificacion
 		//test de comportamiento, verifico que se enviaron 2 mails 
 		// a fede y a deby, no así a dodi que fue el que envió el post
-		verify(mockedMailSender, times(2)).send(any(typeof(Mail)))
+		verify(mockedMailSender, times(2)).send(any(Mail))
 	}
 
 	@Test
