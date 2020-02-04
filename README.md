@@ -39,11 +39,13 @@ Utiliza el framework [Mockito](http://site.mockito.org/) para trabajar con mocks
 En este branch, el test que valida el envío de mails asigna un messageSender por defecto:
 
 ```xtend
-class TestEnvioPosts {
+@DisplayName("Dada una lista de envío abierto")
+class TestEnvioAbierto {
+
 	...
-	@Before
+	@BeforeEach
 	def void init() {
-		mockedMailSender = mock(typeof(MessageSender))
+		mockedMailSender = mock(MessageSender)
 		stubMailSender = new StubMailSender
 ```
 
@@ -51,16 +53,17 @@ La prueba específica de un MailSender que se mockea con el framework Mockito se
 
 ```xtend
 	@Test
+	@DisplayName("Al enviar un post le llega el mensaje a todos los demás suscriptos menos")
 	def void testEnvioPostAListaAlumnosLlegaATodosLosOtrosSuscriptos() {
-		listaAlumnos.agregarPostObserver(new MailObserver(mockedMailSender))
+		listaEnvioAbierto.agregarPostObserver(new MailObserver(mockedMailSender))
 
 		// un alumno envía un mensaje a la lista
-		listaAlumnos.recibirPost(mensajeDodainAlumnos)
+		listaEnvioAbierto.recibirPost(mensajeDodainAlumnos)
 
 		//verificacion
 		//test de comportamiento, verifico que se enviaron 2 mails 
 		// a fede y a deby, no así a dodi que fue el que envió el post
-		verify(mockedMailSender, times(2)).send(any(typeof(Mail)))
+		verify(mockedMailSender, times(2)).send(any(Mail))
 	}
 ```
 
@@ -74,8 +77,7 @@ class MailObserver implements PostObserver {
 		messageSender = _messageSender
 	}
 
-	override send(Post post) {
-		val lista = post.destino
+	override send(Post post, ListaCorreo lista) {
 		lista.getMailsDestino(post).forEach [ mailDestino |
 			val mail = new Mail => [
 				from = post.emisor.mail
@@ -86,6 +88,8 @@ class MailObserver implements PostObserver {
 			messageSender.send(mail)
 		]
 	}
+
+}
 ```
 
 ## Gráfico general
