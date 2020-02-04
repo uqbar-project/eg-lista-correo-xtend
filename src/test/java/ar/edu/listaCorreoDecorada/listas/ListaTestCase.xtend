@@ -1,8 +1,8 @@
 package ar.edu.listaCorreoDecorada.listas
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.junit.After
-import org.junit.Before
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 
 @Accessors
 class ListaTestCase<T extends ListaCorreo> {
@@ -20,12 +20,12 @@ class ListaTestCase<T extends ListaCorreo> {
 		mailDefault = "tesonep@gmail.com"
 	]
 	
-	@Before
+	@BeforeEach
 	def void setUp() {
 		EmailSenderProvider.setEmailSender(emailSenderMock)
 	}
 	
-	@After
+	@AfterEach
 	def tearDown () {
 		EmailSenderProvider.setEmailSender(null)
 	}

@@ -3,7 +3,8 @@ package ar.edu.listaCorreoDecorada.listas
 import ar.edu.listaCorreoDecorada.emails.Email
 import ar.edu.listaCorreoDecorada.emails.EmailSender
 import java.util.ArrayList
-import org.junit.Assert
+
+import static org.junit.jupiter.api.Assertions.assertEquals
 
 class EmailSenderMock implements EmailSender {
 
@@ -16,6 +17,6 @@ class EmailSenderMock implements EmailSender {
 	def void assertEmailEnviado(String message, int cantidad, Post post) {
 		val correspondientes = emailsEnviados.filter(
 			[Email email|email.from == post.from && email.subject == post.subject && email.content == post.content])
-		Assert.assertEquals(message, cantidad, correspondientes.size())
+		assertEquals(cantidad, correspondientes.size, message)
 	}
 }
