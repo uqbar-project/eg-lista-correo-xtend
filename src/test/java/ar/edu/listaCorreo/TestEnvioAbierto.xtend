@@ -124,7 +124,7 @@ class TestEnvioAbierto {
 	}
 	
 	@Test
-	@DisplayName("Un alumno puede enviar dos mails envolviendo la interfaz del mail")
+	@DisplayName("Un alumno puede enviar dos mails envolviendo la interfaz del mail en una cáscara que hace simplemente println")
 	def void alumnoEnvia2MailsConMockitoQueGeneraUnaCascaraVaciaDeLaInterfazQueHacePrintln() {
 		val listaMockeada = mock(MailSender)
 		// Revisar!!
