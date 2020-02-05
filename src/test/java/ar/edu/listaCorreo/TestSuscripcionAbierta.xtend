@@ -30,7 +30,7 @@ class TestSuscripcionAbierta {
 	}
 		
 	@Test
-	@DisplayName("la suscripción a una lista abierta es automática")
+	@DisplayName("la suscripción es automática y pasa a integrar la lista")
 	def void suscripcionAListaAbiertaEsAutomatica() {
 		assertFalse(listaAbierta.estaSuscripto(deby))
 		listaAbierta.suscribir(deby)
@@ -38,7 +38,7 @@ class TestSuscripcionAbierta {
 	}
 
 	@Test
-	@DisplayName("tratar de aprobar una suscripción de la lista abierta no tiene sentido, es un error")
+	@DisplayName("tratar de aprobar una suscripción no tiene sentido, es un error")
 	def void aprobarSuscripcionDeListaAbiertaNoTieneSentido() {
 		assertThrows(UnsupportedOperationException, [ listaAbierta.aprobarSuscripcion(deby) ])
 	}

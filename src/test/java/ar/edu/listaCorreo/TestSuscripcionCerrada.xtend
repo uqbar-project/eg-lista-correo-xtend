@@ -29,7 +29,7 @@ class TestSuscripcionCerrada {
 	}
 		
 	@Test
-	@DisplayName("cuando un miembro se suscribe a una lista cerrada debe esperar el ok de un administrador")
+	@DisplayName("cuando un miembro se suscribe debe esperar el ok de un administrador para integrar a la lista")
 	def void suscripcionAListaCerradaNoEsAutomatica() {
 		assertFalse(listaCerrada.estaSuscripto(deby))
 		listaCerrada.suscribir(deby)
@@ -37,7 +37,7 @@ class TestSuscripcionCerrada {
 	}
 
 	@Test
-	@DisplayName("cuando un miembro se suscribe a una lista y el administrador le aprueba, pasa a formar parte de la lista")
+	@DisplayName("cuando un miembro se suscribe y el administrador lo aprueba, pasa a formar parte de la lista")
 	def void suscripcionYAprobacionDeListaCerrada() {
 		assertFalse(listaCerrada.estaSuscripto(deby))
 		listaCerrada.suscribir(deby)
