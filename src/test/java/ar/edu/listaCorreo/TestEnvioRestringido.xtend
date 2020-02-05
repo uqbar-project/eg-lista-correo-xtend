@@ -46,7 +46,7 @@ class TestEnvioRestringido {
 	/*************************************************************/
 
 	@Test
-	@DisplayName("Un miembro que no está suscripto a una lista de envío restringido no puede enviar post")
+	@DisplayName("Un miembro que no está suscripto no puede enviar un post")
 	def void miembroNoSuscriptoNoPuedeEnviarPostAListaDeEnvioRestringido() {
 		assertThrows(BusinessException, [ listaEnvioRestringido.recibirPost(mensajeAlumnoRecursividad) ])
 	}
