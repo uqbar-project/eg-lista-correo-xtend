@@ -1,12 +1,12 @@
 package ar.edu.listaCorreoMailSingleton.observers
 
+import ar.edu.listaCorreoMailSingleton.ListaCorreo
 import ar.edu.listaCorreoMailSingleton.Post
 
 class MailObserver implements PostObserver {
 	// No usamos la variable messageSender
 
-	override send(Post post) {
-		val lista = post.destino
+	override send(Post post, ListaCorreo lista) {
 		lista.getMailsDestino(post).forEach [ mailDestino |
 			val mail = new Mail => [
 				from = post.emisor.mail

@@ -29,16 +29,27 @@ class ListaCorreo {
 		tipoSuscripcion = new SuscripcionAbierta
 	}
 	
-	def static ListaCorreo listaAbierta() {
+	def static ListaCorreo listaSuscripcionAbierta() {
 		new ListaCorreo
-	}	
+	}
 
-	def static ListaCorreo listaCerrada() {
+	def static ListaCorreo listaSuscripcionCerrada() {
 		new ListaCorreo => [
 			tipoEnvio = new EnvioRestringido
 			tipoSuscripcion = new SuscripcionCerrada
 		]
-	}	
+	}
+
+	def static ListaCorreo listaEnvioAbierto() {
+		new ListaCorreo
+	}
+
+	def static ListaCorreo listaEnvioRestringido() {
+		new ListaCorreo => [
+			tipoEnvio = new EnvioRestringido
+			tipoSuscripcion = new SuscripcionCerrada
+		]
+	}
 
 	/** 
 	 * CASO DE USO: Suscripción
@@ -65,7 +76,7 @@ class ListaCorreo {
 	def void recibirPost(Post post) {
 		tipoEnvio.validarEnvio(post, this)
 		post.enviar
-		postObservers.forEach [ sender | sender.send(post) ]
+		postObservers.forEach [ sender | sender.send(post, this) ]
 	}
 	
 	def void agregarPostObserver(PostObserver postObserver) {
