@@ -5,19 +5,21 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class Miembro {
 	
+	public static int TOPE_ENVIO_MAILS = 5
+
 	String mail
 	int mailsEnviados = 0
 	boolean bloqueado = false
 	
-	new(String pMail) {
-		mail = pMail
+	new(String _mail) {
+		mail = _mail
 	}
 	
 	def boolean envioMuchosMensajes() {
-		mailsEnviados >= 5
+		mailsEnviados >= TOPE_ENVIO_MAILS
 	}
 	
-	def void enviarMail() {
+	def void envioMail() {
 		mailsEnviados++	
 	}
 	

@@ -1,12 +1,12 @@
 package ar.edu.listaCorreoMailServiceLocator.observers
 
+import ar.edu.listaCorreoMailServiceLocator.ListaCorreo
 import ar.edu.listaCorreoMailServiceLocator.Post
 import ar.edu.listaCorreoMailServiceLocator.config.ServiceLocator
 
 class MailObserver implements PostObserver {
 	
-	override send(Post post) {
-		val lista = post.destino
+	override send(Post post, ListaCorreo lista) {
 		lista.getMailsDestino(post).forEach [ mailDestino |
 			val mail = new Mail => [
 				from = post.emisor.mail

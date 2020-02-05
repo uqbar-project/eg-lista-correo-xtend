@@ -1,15 +1,16 @@
 package ar.edu.listaCorreoMailServiceLocator.observers
 
-import java.util.List
-import java.util.ArrayList
+import ar.edu.listaCorreoMailServiceLocator.ListaCorreo
 import ar.edu.listaCorreoMailServiceLocator.Post
+import java.util.ArrayList
+import java.util.List
 
 class MalasPalabrasObserver implements PostObserver {
 
 	List<String> malasPalabras = new ArrayList<String>
 	List<Post> postConMalasPalabras = new ArrayList<Post>
 
-	override send(Post post) {
+	override send(Post post, ListaCorreo lista) {
 		if (tieneMalasPalabras(post)) {
 			println("Mensaje enviado a admin por mensaje con malas palabras: " + post.mensaje)
 			postConMalasPalabras.add(post)

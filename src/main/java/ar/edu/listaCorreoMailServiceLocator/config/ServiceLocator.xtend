@@ -3,10 +3,9 @@ package ar.edu.listaCorreoMailServiceLocator.config
 import ar.edu.listaCorreoMailServiceLocator.observers.MessageSender
 import org.eclipse.xtend.lib.annotations.Accessors
 
-@Accessors
 class ServiceLocator {
 
-	MessageSender messageSender
+	@Accessors MessageSender messageSender
 	
 	/**********************************************
 	 * IMPLEMENTACION DE SINGLETON
