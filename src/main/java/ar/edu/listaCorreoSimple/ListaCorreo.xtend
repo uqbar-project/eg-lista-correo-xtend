@@ -18,11 +18,11 @@ class ListaCorreo {
 	 
 	 */
 	/** Constructor default: toda lista es abierta */
-	def static ListaCorreo listaAbierta() {
+	def static ListaCorreo listaEnvioAbierto() {
 		new ListaCorreo
 	}
 
-	def static ListaCorreo listaCerrada() {
+	def static ListaCorreo listaEnvioRestringido() {
 		new ListaCorreo => [
 			tipoEnvio = new EnvioRestringido
 		]
@@ -34,16 +34,15 @@ class ListaCorreo {
 	 **/
 	def void recibirPost(Post post) {
 		tipoEnvio.validarEnvio(post, this)
-		val lista = post.destino
-		val mailsDestino = lista.getMailsDestino(post)
+		val mailsDestino = this.getMailsDestino(post)
 		mailsDestino.forEach [ mailDestino |
-			var mail = new Mail => [
+			val mail = new Mail => [
 				from = post.emisor.mail
-				titulo = "[" + lista.encabezado + "] nuevo post"
+				titulo = "[" + this.encabezado + "] nuevo post"
 				message = post.mensaje
 				to = mailDestino
 			]
-			mailSender.send(mail)
+			mailSender.send(mail, this)
 		]
 
 	}

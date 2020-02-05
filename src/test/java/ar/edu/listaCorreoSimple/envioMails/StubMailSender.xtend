@@ -1,20 +1,14 @@
 package ar.edu.listaCorreoSimple.envioMails
 
-import ar.edu.listaCorreoSimple.envioMails.Mail
-import ar.edu.listaCorreoSimple.envioMails.MailSender
-import java.util.HashMap
+import ar.edu.listaCorreoSimple.ListaCorreo
 import java.util.HashSet
 import java.util.Map
 import java.util.Set
 
 class StubMailSender implements MailSender {
-	Map<String, Set<String>> mailsEnviados
+	Map<String, Set<String>> mailsEnviados = newHashMap
 	
-	new() {
-		mailsEnviados = new HashMap<String, Set<String>>
-	}
-	
-	override send(Mail mail) {
+	override send(Mail mail, ListaCorreo lista) {
 		simularEnvioMail(mail.from, mail.message)
 	}
 	

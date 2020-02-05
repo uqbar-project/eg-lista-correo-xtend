@@ -1,109 +1,98 @@
-package ar.edu.listaCorreoSimple
+package ar.edu.listaCorreo
 
+import ar.edu.listaCorreoSimple.ListaCorreo
+import ar.edu.listaCorreoSimple.Miembro
+import ar.edu.listaCorreoSimple.Post
 import ar.edu.listaCorreoSimple.envioMails.Mail
 import ar.edu.listaCorreoSimple.envioMails.MailException
 import ar.edu.listaCorreoSimple.envioMails.MailSender
 import ar.edu.listaCorreoSimple.envioMails.StubMailSender
-import ar.edu.listaCorreoSimple.exceptions.BusinessException
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatcher
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.stubbing.Answer
 
+import static org.junit.jupiter.api.Assertions.assertEquals
+import static org.junit.jupiter.api.Assertions.fail
 import static org.mockito.ArgumentMatchers.*
 import static org.mockito.Mockito.*
 
-class TestEnvioPosts {
+@DisplayName("Dada una lista de envío abierto")
+class TestEnvioAbierto {
 
-	ListaCorreo listaProfes
-	ListaCorreo listaAlumnos
+	ListaCorreo listaEnvioAbierto
 	ListaCorreo listaVacia
 	Miembro dodain
-	Miembro nico
 	Miembro deby
 	Miembro alumno
 	Miembro fede
 	Post mensajeAlumnoRecursividad
-	Post mensajeAlumnoRecursividadOk
 	Post mensajeAlumnoOrdenSuperior
 	Post mensajeDodainAlumnos
 	Post mensajeAListaVacia
-	StubMailSender stubMailSender = new StubMailSender
+	StubMailSender stubMailSender
 	MailSender mockedMailSender
 
-	@Before
+	@BeforeEach
 	def void init() {
-		mockedMailSender = mock(typeof(MailSender))
-
+		mockedMailSender = mock(MailSender)
+		stubMailSender = new StubMailSender
+		
 		/** Listas de correo */
-		listaAlumnos = ListaCorreo.listaAbierta()
-		listaProfes = ListaCorreo.listaCerrada()
+		listaEnvioAbierto = ListaCorreo.listaEnvioAbierto() => [
+			mailSender = stubMailSender
+		]
 
-		/** Profes */
+		/** Miembros */
 		dodain = new Miembro("fernando.dodino@gmail.com")
-		nico = new Miembro("nicolas.passerini@gmail.com")
 		deby = new Miembro("debyfortini@gmail.com")
-
-		/** Alumnos **/
 		alumno = new Miembro("alumno@uni.edu.ar")
 		fede = new Miembro("fede@uni.edu.ar")
 
-		/** en la lista de profes están los profes */
-		listaProfes => [
-			agregarMiembro(dodain)
-			agregarMiembro(nico)
-			agregarMiembro(deby)
-			mailSender = stubMailSender
-		]
-
 		/** en la de alumnos hay alumnos y profes */
-		listaAlumnos => [
+		listaEnvioAbierto => [
 			agregarMiembro(dodain)
 			agregarMiembro(deby)
 			agregarMiembro(fede)
-			mailSender = stubMailSender
 		]
 
-		listaVacia = ListaCorreo.listaAbierta()
-
-		mensajeAlumnoRecursividad = new Post(alumno, "Hola, queria preguntar que es la recursividad", listaProfes)
+		listaVacia = ListaCorreo.listaEnvioAbierto()
+		
+		mensajeAlumnoRecursividad = new Post(alumno, "Hola, queria preguntar que es la recursividad")
 		mensajeDodainAlumnos = new Post(dodain,
-			"Para explicarte recursividad tendría que explicarte qué es la recursividad", listaAlumnos)
-		mensajeAlumnoRecursividadOk = new Post(alumno, "Hola, queria preguntar que es la recursividad", listaAlumnos)
-		mensajeAlumnoOrdenSuperior = new Post(alumno, "Orden superior tiene que ver con religion? Gracias!",
-			listaAlumnos)
-		mensajeAListaVacia = new Post(dodain, "Sale la nueva de Sillicon Valley!", listaVacia)
+			"Para explicarte recursividad tendría que explicarte qué es la recursividad")
+		mensajeAlumnoOrdenSuperior = new Post(alumno, "Orden superior tiene que ver con religion? Gracias!")
+		mensajeAListaVacia = new Post(dodain, "Sale la nueva de Sillicon Valley!")
 	}
 
 	/*************************************************************/
 	/*                     TESTS CON STUBS                       */
 	/*                      TEST DE ESTADO                       */
 	/*************************************************************/
-	@Test(expected=typeof(BusinessException))
-	def void alumnoNoPuederecibirPostPostAListaProfes() {
-		listaProfes.recibirPost(mensajeAlumnoRecursividad)
+
+	@Test
+	@DisplayName("Un miembro que no está suscripto a una lista de envío abierto puede enviar un post")
+	def void miembroNoSuscriptoPuedeEnviarMailAListaAbierta() {
+		assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
+		listaEnvioAbierto.recibirPost(mensajeAlumnoRecursividad)
+		assertEquals(1, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
 	}
 
 	@Test
-	def void alumnoPuederecibirPostMailAListaAbiertaAunSinPertenecerALaLista() {
-		Assert.assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
-		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
-		Assert.assertEquals(1, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
-	}
-
-	@Test
+	@DisplayName("Cada post que se recibe envía a su vez un mail que es registrado en el sistema")
 	def void alumnoEnvia2MailsYSeRegistranAmbosMailsEnElStub() {
-		Assert.assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
-		listaAlumnos.recibirPost(mensajeAlumnoRecursividad)
-		listaAlumnos.recibirPost(mensajeAlumnoOrdenSuperior)
-		Assert.assertEquals(2, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
+		assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
+		listaEnvioAbierto.recibirPost(mensajeAlumnoRecursividad)
+		listaEnvioAbierto.recibirPost(mensajeAlumnoOrdenSuperior)
+		assertEquals(2, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
 	}
 
 	@Test
-	def void alumnoQuiererecibirPostDosMailsPeroElSegundoFallaYSoloSeEnviaUno() {
-		Assert.assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
+	@DisplayName("Al enviar dos mensajes y fallar el segundo, solo se envía un mail")
+	def void alumnoQuiereEnviarDosMailsPeroElSegundoFallaYSoloSeEnviaUno() {
+		assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
 
 		// Con Mockito
 		// Decoramos al stub para hacer que devuelva error cuando envíe el segundo mensaje
@@ -115,82 +104,88 @@ class TestEnvioPosts {
 		// - con un parametro igual al Mail que le pasamos como ejemplo
 		//   (ademas tuvimos que redefinir el equals del Mail para que detecte
 		//    dos mails iguales si tienen el mismo mensaje)
-		doThrow(typeof(MailException)).when(stubMailSenderDecorado).send(
+		doThrow(MailException).when(stubMailSenderDecorado).send(
 			new Mail => [
 				message = mensajeAlumnoOrdenSuperior.mensaje
-			])
+			], listaEnvioAbierto)
 
 		try {
-			listaAlumnos => [
+			listaEnvioAbierto => [
 				mailSender = stubMailSenderDecorado
 				recibirPost(mensajeAlumnoRecursividad)
 				recibirPost(mensajeAlumnoOrdenSuperior)
 			]
-			Assert.assertTrue("Deberia haber tirado error", false)
+			fail("Deberia haber tirado error")
 		} catch (MailException e) {
 			// Esperamos que tire error
 		}
-		Assert.assertEquals(1, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
+		// Qué testeamos, que no haya un try/catch vacío en Lista
+		assertEquals(1, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
 	}
-
+	
+	@Test
+	@DisplayName("Un alumno puede enviar dos mails envolviendo la interfaz del mail")
 	def void alumnoEnvia2MailsConMockitoQueGeneraUnaCascaraVaciaDeLaInterfazQueHacePrintln() {
-		val listaMockeada = mock(typeof(MailSender))
+		val listaMockeada = mock(MailSender)
 		// Revisar!!
-		doAnswer(new ImprimirPorConsola).when(listaMockeada).send(any(typeof(Mail)))
-		listaAlumnos => [
+		doAnswer(new ImprimirPorConsola).when(listaMockeada).send(any(Mail), any(ListaCorreo))
+		listaEnvioAbierto => [
 			mailSender = listaMockeada
-			recibirPost(mensajeAlumnoRecursividadOk)
+			recibirPost(mensajeAlumnoRecursividad)
 			recibirPost(mensajeAlumnoOrdenSuperior)
 		]
-
 	}
-
+		
 	/*************************************************************/
 	/*                     TESTS CON MOCKS                       */
 	/*                  TEST DE COMPORTAMIENTO                   */
 	/*************************************************************/
 	@Test
+	@DisplayName("Al enviar un post le llega el mensaje a todos los demás suscriptos menos")
 	def void testEnvioPostAListaAlumnosLlegaATodosLosOtrosSuscriptos() {
-		listaAlumnos => [
+		listaEnvioAbierto => [
 			mailSender = mockedMailSender
 			// un alumno envía un mensaje a la lista
 			recibirPost(mensajeDodainAlumnos)
 		]
 
 		//verificacion
-		//test de comportamiento, verifico que se recibirPoston 2 mails 
+		//test de comportamiento, verifico que se enviaron 2 mails 
 		// a fede y a deby, no así a dodi que fue el que envió el post
-		verify(mockedMailSender, times(2)).send(any(typeof(Mail)))
+		verify(mockedMailSender, times(2)).send(any(Mail), any(ListaCorreo))
 	}
 
 	@Test
+	@DisplayName("Al enviar un post no llega el mensaje a quien lo envió")
 	def void testAlQueEnviaPostNoLeLlegaMail() {
-		listaAlumnos => [
+		listaEnvioAbierto => [
 			mailSender = mockedMailSender
 			recibirPost(mensajeDodainAlumnos)
 		]
-
 		// busco que nunca hayan enviado un mail al emisor del post: fdodino
-		verify(mockedMailSender, never).send(argThat(new MailEnviadoA(dodain.mail)))
+		verify(mockedMailSender, never).send(argThat(new MailEnviadoA(dodain.mail)), any(ListaCorreo))
 	}
 
 	@Test
+	@DisplayName("Al enviarse un post a una lista no vacía a alguno le llega un mail")
+	def void enviarMailAListaAlumnos() {
+		listaEnvioAbierto => [
+			mailSender = mockedMailSender
+			recibirPost(mensajeAlumnoRecursividad)
+		]
+		verify(mockedMailSender, atLeastOnce).send(any(Mail), any(ListaCorreo))
+	}	
+
+	@Test
+	@DisplayName("Si una lista está vacía al enviarse un post no le llega el mensaje a nadie")
 	def void testListaVaciaNoLeLlegaNingunPostANadie() {
 		listaVacia => [
 			mailSender = mockedMailSender
 			recibirPost(mensajeAListaVacia)
 		]
-		verify(mockedMailSender, never).send(any(Mail))
+		verify(mockedMailSender, never).send(any(Mail), any(ListaCorreo))
 	}
 
-	@Test
-	def void recibirPostMailAListaAlumnos() {
-		listaAlumnos => [
-			mailSender = mockedMailSender
-			recibirPost(mensajeAlumnoRecursividad)
-		]
-		verify(mockedMailSender, atLeastOnce).send(any(Mail))
-	}
 }
 
 class ImprimirPorConsola implements Answer<Void> {
