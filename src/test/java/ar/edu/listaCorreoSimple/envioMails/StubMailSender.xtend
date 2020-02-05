@@ -1,6 +1,5 @@
 package ar.edu.listaCorreoSimple.envioMails
 
-import ar.edu.listaCorreoSimple.ListaCorreo
 import java.util.HashSet
 import java.util.Map
 import java.util.Set
@@ -8,7 +7,7 @@ import java.util.Set
 class StubMailSender implements MailSender {
 	Map<String, Set<String>> mailsEnviados = newHashMap
 	
-	override send(Mail mail, ListaCorreo lista) {
+	override send(Mail mail) {
 		simularEnvioMail(mail.from, mail.message)
 	}
 	

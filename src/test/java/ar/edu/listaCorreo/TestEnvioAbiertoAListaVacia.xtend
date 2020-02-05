@@ -46,7 +46,7 @@ class TestEnvioAbiertoAListaVacia {
 			mailSender = mockedMailSender
 			recibirPost(mensajeAListaVacia)
 		]
-		verify(mockedMailSender, never).send(any(Mail), any(ListaCorreo))
+		verify(mockedMailSender, never).send(any(Mail))
 	}
 
 }

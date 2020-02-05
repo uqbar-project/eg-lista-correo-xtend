@@ -42,7 +42,7 @@ class ListaCorreo {
 				message = post.mensaje
 				to = mailDestino
 			]
-			mailSender.send(mail, this)
+			mailSender.send(mail)
 		]
 
 	}

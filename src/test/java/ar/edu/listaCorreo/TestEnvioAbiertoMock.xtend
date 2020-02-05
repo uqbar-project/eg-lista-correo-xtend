@@ -64,7 +64,7 @@ class TestEnvioAbiertoMock {
 		//verificacion
 		//test de comportamiento, verifico que se enviaron 2 mails 
 		// a fede y a deby, no así a dodi que fue el que envió el post
-		verify(mockedMailSender, times(2)).send(any(Mail), any(ListaCorreo))
+		verify(mockedMailSender, times(2)).send(any(Mail))
 	}
 
 	@Test
@@ -73,7 +73,7 @@ class TestEnvioAbiertoMock {
 		listaEnvioAbiertoMock.recibirPost(mensajeDodainAlumnos)
 
 		// busco que nunca hayan enviado un mail al emisor del post: fdodino
-		verify(mockedMailSender, never).send(argThat(new MailEnviadoA(dodain.mail)), any(ListaCorreo))
+		verify(mockedMailSender, never).send(argThat(new MailEnviadoA(dodain.mail)))
 	}
 
 	@Test
@@ -81,7 +81,7 @@ class TestEnvioAbiertoMock {
 	def void enviarMailAListaAlumnos() {
 		listaEnvioAbiertoMock.recibirPost(mensajeAlumnoRecursividad)
 
-		verify(mockedMailSender, atLeastOnce).send(any(Mail), any(ListaCorreo))
+		verify(mockedMailSender, atLeastOnce).send(any(Mail))
 	}	
 
 }

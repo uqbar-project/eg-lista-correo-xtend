@@ -95,7 +95,8 @@ class TestEnvioAbiertoStub {
 		doThrow(MailException).when(stubMailSenderDecorado).send(
 			new Mail => [
 				message = mensajeAlumnoOrdenSuperior.mensaje
-			], listaEnvioAbiertoStub)
+			]
+		)
 
 		try {
 			listaEnvioAbiertoStub => [
@@ -116,7 +117,7 @@ class TestEnvioAbiertoStub {
 	def void alumnoEnvia2MailsConMockito() {
 		val listaMockeada = mock(MailSender)
 		// Revisar!!
-		doAnswer(new ImprimirPorConsola).when(listaMockeada).send(any(Mail), any(ListaCorreo))
+		doAnswer(new ImprimirPorConsola).when(listaMockeada).send(any(Mail))
 		listaEnvioAbiertoStub => [
 			mailSender = listaMockeada
 			recibirPost(mensajeAlumnoRecursividad)
