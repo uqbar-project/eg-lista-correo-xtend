@@ -1,23 +1,26 @@
 package ar.edu.listaCorreoEnvioBloques.listas
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+import static org.junit.jupiter.api.Assertions.assertTrue
+import static org.junit.jupiter.api.Assertions.assertFalse
 
+@DisplayName("Dada una lista de suscripción abierta")
 class ListaAbiertaTestCase extends ListaTestCase {
 	
-	@Before 
+	@BeforeEach 
 	override void setUp() {
 		super.setUp()
 		lista = new ListaCorreoBuilder().abierta().libre().build()
 	}
 	
 	@Test
+	@DisplayName("un usuario que se suscribe automáticamente pasa a estar en la lista")
 	def testSuscripcion() {
 		lista.suscribir(leo)
-		Assert.assertTrue("Se esperaba que leo este en la lista", lista.miembros.contains(leo))
-		Assert.assertFalse("Se esperaba que pablo no este en la lista", lista.miembros.contains(pablo))
+		assertTrue(lista.miembros.contains(leo), "Se esperaba que leo este en la lista")
+		assertFalse(lista.miembros.contains(pablo), "Se esperaba que pablo no este en la lista")
 	}
-	
-	
+
 }

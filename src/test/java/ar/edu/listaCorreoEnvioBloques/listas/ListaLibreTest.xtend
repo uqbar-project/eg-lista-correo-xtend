@@ -1,11 +1,13 @@
 package ar.edu.listaCorreoEnvioBloques.listas
 
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 
+@DisplayName("Dada una lista de envío libre")
 class ListaLibreTest extends ListaTestCase {
 	
-	@Before 
+	@BeforeEach
 	override void setUp() {
 		super.setUp()
 		lista = new ListaCorreoBuilder().abierta().libre().build()	
@@ -15,6 +17,7 @@ class ListaLibreTest extends ListaTestCase {
 	}
 	
 	@Test
+	@DisplayName("un miembro que pertenece a la lista puede enviar mails correctamente")
 	def testEnviarMiembro() {
 		val post = new Post => [
 			content = "Hola"
@@ -26,6 +29,7 @@ class ListaLibreTest extends ListaTestCase {
 	}
 	
 	@Test
+	@DisplayName("un miembro que no pertenece a la lista puede enviar mails correctamente")
 	def testEnviarNoMiembro() {
 		val post = new Post => [
 			content = "Hola"
@@ -35,4 +39,5 @@ class ListaLibreTest extends ListaTestCase {
 		lista.enviar(post)
 		emailSenderMock.assertEmailEnviado("Se esperaba que se envien 3 mails", 3, post)	
 	}
+
 }

@@ -1,8 +1,8 @@
 package ar.edu.listaCorreoEnvioBloques.listas
 
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.junit.After
-import org.junit.Before
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 
 @Accessors
 class ListaTestCase {
@@ -19,12 +19,12 @@ class ListaTestCase {
 		mailDefault = "tesonep@gmail.com"
 	]
 	
-	@Before
+	@BeforeEach
 	def void setUp() {
 		EmailSenderProvider.setEmailSender(emailSenderMock)
 	}
 	
-	@After
+	@AfterEach
 	def tearDown () {
 		EmailSenderProvider.setEmailSender(null)
 	}

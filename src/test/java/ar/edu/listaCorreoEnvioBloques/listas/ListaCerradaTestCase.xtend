@@ -1,12 +1,16 @@
 package ar.edu.listaCorreoEnvioBloques.listas
 
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 
+import static org.junit.jupiter.api.Assertions.assertFalse
+import static org.junit.jupiter.api.Assertions.assertTrue
+
+@DisplayName("Dada una lista de suscripción cerrada")
 class ListaCerradaTestCase extends ListaTestCase {
 
-	@Before 
+	@BeforeEach
 	override void setUp() {
 		super.setUp()
 		lista = new ListaCorreoBuilder().cerrada().libre().build()
@@ -14,33 +18,33 @@ class ListaCerradaTestCase extends ListaTestCase {
 	}
 	
 	@Test
+	@DisplayName("cuando un usuario se suscribe, debe esperar el ok del administrador")
 	def testSuscripcion() {
 		lista.suscribir(leo)
-		Assert.assertFalse("Se esperaba que leo no este en la lista", lista.miembros.contains(leo))
-		Assert.assertFalse("Se esperaba que pablo no este en la lista", lista.miembros.contains(leo))
+		assertFalse(lista.miembros.contains(leo), "Se esperaba que leo no este en la lista")
+		assertFalse(lista.miembros.contains(leo), "Se esperaba que pablo no este en la lista")
 		val modo = lista.modoSuscripcion as ModoCerrado 
-		Assert.assertTrue("Se esperaba que " + leo+ "este pendiente", modo.miembrosPendientes.contains(leo))
+		assertTrue(modo.miembrosPendientes.contains(leo), "Se esperaba que " + leo + "este pendiente")
 	}
 	
 	@Test
+	@DisplayName("cuando un usuario se suscribe y el administrador lo aprueba, el miembro se incorpora a la lista")
 	def testAprobar() {
 		lista.suscribir(leo)
 		val modo = lista.modoSuscripcion as ModoCerrado
 		modo.aprobar(leo)
-		Assert.assertTrue("Se esperaba que leo este en la lista", lista.miembros.contains(leo))
-		Assert.assertFalse("Se esperaba que " + leo+ " no este pendiente", modo.miembrosPendientes.contains(leo))	
+		assertTrue(lista.miembros.contains(leo), "Se esperaba que leo este en la lista")
+		assertFalse(modo.miembrosPendientes.contains(leo), "Se esperaba que " + leo + " no este pendiente")	
 	}
 	
 	@Test
+	@DisplayName("cuando un usuario se suscribe y el administrador lo rechaza, el miembro queda fuera de la lista")
 	def testRechazar() {
 		lista.suscribir(leo)
 		val modo = lista.modoSuscripcion as ModoCerrado
 		modo.rechazar(leo)
-		Assert.assertFalse("Se esperaba que leo no este en la lista", lista.miembros.contains(leo))
-		Assert.assertFalse("Se esperaba que " + leo+ " no este pendiente", modo.miembrosPendientes.contains(leo))
-		
+		assertFalse(lista.miembros.contains(leo), "Se esperaba que leo no este en la lista")
+		assertFalse(modo.miembrosPendientes.contains(leo), "Se esperaba que " + leo + " no este pendiente")
 	}
-	
-	
-	
+
 }
