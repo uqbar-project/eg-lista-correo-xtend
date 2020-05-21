@@ -21,7 +21,7 @@ class EnvioRestringido implements TipoEnvio {
 class EnvioAbierto implements TipoEnvio {
 	
 	override validarEnvio(Post post, ListaCorreo lista) {
-		// Null Pattern
+		// Null Object Pattern
 	}
 	
 }

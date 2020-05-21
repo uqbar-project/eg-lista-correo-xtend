@@ -59,6 +59,7 @@ class TestEnvioAbiertoMock {
 	@Test
 	@DisplayName("Al enviar un post le llega el mensaje a todos los demás suscriptos")
 	def void testEnvioPostAListaAlumnosLlegaATodosLosOtrosSuscriptos() {
+		// act
 		listaEnvioAbiertoMock.recibirPost(mensajeDodainAlumnos)
 
 		//verificacion

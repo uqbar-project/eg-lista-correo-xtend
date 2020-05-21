@@ -1,10 +1,12 @@
 package ar.edu.listaCorreoSimple.envioMails
 
+import ar.edu.listaCorreoSimple.Miembro
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class Mail {
 
+	Miembro usuarioOriginal
 	String from
 	String to
 	String message

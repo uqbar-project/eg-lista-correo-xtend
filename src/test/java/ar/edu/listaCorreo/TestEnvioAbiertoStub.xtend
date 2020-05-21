@@ -63,8 +63,13 @@ class TestEnvioAbiertoStub {
 	@Test
 	@DisplayName("Un miembro que no está suscripto puede enviar un post")
 	def void miembroNoSuscriptoPuedeEnviarMailAListaAbierta() {
+		// precondición
 		assertEquals(0, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
+		
+		// act
 		listaEnvioAbiertoStub.recibirPost(mensajeAlumnoRecursividad)
+		
+		// assert
 		assertEquals(1, stubMailSender.mailsDe("alumno@uni.edu.ar").size)
 	}
 

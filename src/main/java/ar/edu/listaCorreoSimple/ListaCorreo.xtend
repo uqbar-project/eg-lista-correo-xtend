@@ -37,6 +37,7 @@ class ListaCorreo {
 		val mailsDestino = this.getMailsDestino(post)
 		mailsDestino.forEach [ mailDestino |
 			val mail = new Mail => [
+				usuarioOriginal = post.emisor
 				from = post.emisor.mail
 				titulo = "[" + this.encabezado + "] nuevo post"
 				message = post.mensaje
@@ -44,7 +45,6 @@ class ListaCorreo {
 			]
 			mailSender.send(mail)
 		]
-
 	}
 
 	def getDestinatarios(Post post) {
