@@ -34,6 +34,7 @@ class ListaCorreo {
 	 **/
 	def void recibirPost(Post post) {
 		tipoEnvio.validarEnvio(post, this)
+		
 		val mailsDestino = this.getMailsDestino(post)
 		mailsDestino.forEach [ mailDestino |
 			val mail = new Mail => [
