@@ -1,5 +1,7 @@
 package ar.edu.listaCorreo
 
+import ar.edu.listaCorreoSimple.Miembro
+import ar.edu.listaCorreoSimple.Post
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -31,13 +33,6 @@ class TestPost {
 		assertFalse(post.tiene("roma"))	
 	}
 	
-	@Test
-	@DisplayName("Al enviarse un post eso afecta al emisor")
-	def void alEnviarseUnPostEsoAfectaAlUsuario() {
-		post.enviarMail
-		verify(post.emisor, times(1)).envioMail	
-	}
-
 	@Test
 	@DisplayName("Palabras del mensaje")
 	def void miembroInicialmenteNoMandaMuchosMensajes() {
